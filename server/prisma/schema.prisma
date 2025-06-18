@@ -13,9 +13,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Patient {
+model User {
+  id           Int           @id @default(autoincrement())
+  login        String        @unique
+  password     String
+  pets         Pet[]
+  appointments Appointment[]
+  receipts     Receipt[]
+}
+
+
+model Pet {
+  id             Int           @id @default(autoincrement())
+  name           String
+  species        String
+  user           User          @relation(fields: [userId], references: [id])
+  userId         Int
+  appointments   Appointment[]
+}
+
+model Doctor {
+  id           Int           @id @default(autoincrement())
+  login        String        @unique
+  password     String
+  appointments Appointment[]
+  services     Service[]
+  receipts     Receipt[]
+}
+
+model Appointment {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  notes     String?
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+
+  pet       Pet      @relation(fields: [petId], references: [id])
+  petId     Int
+
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId  Int
+}
+
+
+model Receipt {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId  Int
+  amount    Float
+  date      DateTime
+}
+
+model Service {
   id        Int      @id @default(autoincrement())
   name      String
-  email     String   @unique
-  createdAt DateTime @default(now())
+  price     Float
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  doctorId  Int
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  login    String @unique
+  password String
 }
