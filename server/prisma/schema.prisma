@@ -11,8 +11,8 @@ model User {
   id           Int           @id @default(autoincrement())
   login        String        @unique
   password     String
-  pets         Pet[]
   appointments Appointment[]
+  pets         Pet[]
   receipts     Receipt[]
 }
 
@@ -20,9 +20,9 @@ model Pet {
   id           Int           @id @default(autoincrement())
   name         String
   species      String
-  user         User          @relation(fields: [userId], references: [id])
   userId       Int
   appointments Appointment[]
+  user         User          @relation(fields: [userId], references: [id])
 }
 
 model Doctor {
@@ -30,41 +30,38 @@ model Doctor {
   login        String        @unique
   password     String
   appointments Appointment[]
-  services     Service[]
   receipts     Receipt[]
+  services     Service[]
 }
 
 model Appointment {
-  id        Int      @id @default(autoincrement())
-  date      DateTime
-  notes     String?
-
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-
-  pet       Pet      @relation(fields: [petId], references: [id])
-  petId     Int
-
-  doctor    Doctor   @relation(fields: [doctorId], references: [id])
-  doctorId  Int
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  doctorId Int
+  date     DateTime
+  notes    String?
+  petId    Int
+  doctor   Doctor   @relation(fields: [doctorId], references: [id])
+  pet      Pet      @relation(fields: [petId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
 }
 
 model Receipt {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
-  doctor    Doctor   @relation(fields: [doctorId], references: [id])
-  doctorId  Int
-  amount    Float
-  date      DateTime
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  doctorId Int
+  amount   Float
+  date     DateTime
+  doctor   Doctor   @relation(fields: [doctorId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
 }
 
 model Service {
-  id        Int      @id @default(autoincrement())
-  name      String
-  price     Float
-  doctor    Doctor   @relation(fields: [doctorId], references: [id])
-  doctorId  Int
+  id       Int    @id @default(autoincrement())
+  name     String
+  price    Float
+  doctorId Int
+  doctor   Doctor @relation(fields: [doctorId], references: [id])
 }
 
 model Admin {

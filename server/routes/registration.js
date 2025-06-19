@@ -1,0 +1,40 @@
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+const router = express.Router();
+
+router.post('/', async (req, res) => {
+  const { login, password } = req.body;
+  console.log(" Incoming registration request:", req.body);
+
+  if (!login || !password) {
+    return res.status(400).json({ error: 'Login and password are required' });
+  }
+
+try {
+    const existingUser = await prisma.user.findUnique({ where: { login } });
+
+    if (existingUser) {
+      return res.status(409).json({ error: 'User with this login already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await prisma.user.create({
+      data: {
+        login,
+        password: hashedPassword,
+      },
+    });
+
+    console.log(` User registered: ${newUser.login}`);
+    res.status(201).json({ message: 'User registered successfully', userId: newUser.id });
+  } catch (error) {
+    console.error(' Registration error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+module.exports = router;
