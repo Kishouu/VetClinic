@@ -1,19 +1,13 @@
-const express=require("express");
-const cors=require("cors");
-const app=express();
-const port=5000;
+const express = require('express');
+const loginRoute = require('./routes/login'); // Adjust path if needed
+require('dotenv').config();
 
-app.use(cors());
+const app = express();
 
-const data = [
-	{id:1, name:"Item 1"},
-	{id:2, name:"Item 2"},
-];
+app.use(express.json());
+app.use('/api/login', loginRoute);
 
-app.get("/api/items",(req,res)=>{
-	res.json(data);
-});
-
-app.listen(port,() => {
-	console.log("Server is running on http://localhost:${port}");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
