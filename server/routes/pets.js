@@ -26,7 +26,7 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // GET all pets (admin-like view)
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
   try {
     const pets = await prisma.pet.findMany({
       include: {

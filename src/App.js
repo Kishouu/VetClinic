@@ -1,26 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Register from './pages/Register';
+import LoginForm from './components/LoginForm';
+import AppointmentForm from './components/AppointmentForm';
 
 function App() {
-  const[items,setItems] = useState([]);
-
-	useEffect(() => {
-		fetch("http://localhost:5000/api/items")
-		.then((responce) => responce.json())
-		.then((data) => setItems(data));
-	},[]);
-	return(
-		<div className = "App">
-		<header className="App-header">
-		<h1>Items</h1>
-		<ul>
-		{items.map((item) => (
-			<li key={item.id}>{item.name}</li>
-		))}
-		</ul>
-      </header>
-    </div>
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/appointment" element={<AppointmentForm />} />
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
+
