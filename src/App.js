@@ -1,24 +1,24 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import LoginForm from './components/LoginForm';
-import AppointmentForm from './components/AppointmentForm';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-function App() {
+import Home from './pages/Home';
+import SignInPage from './pages/SignInPage';
+import Account from './pages/Account';
+
+export default function App() {
   return (
     <Router>
-      <Navbar />
+      <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
+        <Link to="/" style={{ marginRight: '1rem' }}>Home</Link>
+        <Link to="/signin">Sign In</Link>
+      </nav>
+
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/appointment" element={<AppointmentForm />} />
+        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/account" element={<Account />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;
 

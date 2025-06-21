@@ -5,25 +5,32 @@ export default function RegisterForm({ onLogin }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
+
+    if (!login || !password) {
+      setError('Please enter both login and password');
+      return;
+    }
 
     try {
-      const res = await axios.post('/api/registration', { login, password });
+      const res = await axios.post('/api/register', { login, password });
 
-      if (res.data.token) {
-        // Save token to localStorage
-        localStorage.setItem('token', res.data.token);
-
-        // Notify parent about login
-        onLogin(res.data.token);
+      if (res.status === 201) {
+        setSuccess('Registration successful! Logging you in...');
+        // Optionally auto-login after registration:
+        if (res.data.token) {
+          onLogin(res.data.token);
+        }
       } else {
-        setError('Registration failed: no token received');
+        setError('Registration failed');
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed');
+      setError(err.response?.data?.error || 'Registration error');
     }
   };
 
@@ -31,6 +38,7 @@ export default function RegisterForm({ onLogin }) {
     <form onSubmit={handleSubmit}>
       <h2>Register</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>{success}</p>}
       <input
         type="text"
         placeholder="Login"

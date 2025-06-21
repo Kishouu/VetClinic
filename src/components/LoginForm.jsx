@@ -11,7 +11,11 @@ export default function LoginForm({ onLogin }) {
     setError('');
 
     try {
-      const res = await axios.post('/api/login', { login, password });
+      const res = await axios.post('http://localhost:3001/api/login', {
+        login,
+        password,
+      });
+
       if (res.data.token) {
         onLogin(res.data.token);
       }

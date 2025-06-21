@@ -6,6 +6,7 @@ export default function AppointmentForm({ token }) {
   const [time, setTime] = useState('');
   const [petName, setPetName] = useState('');
   const [species, setSpecies] = useState('');
+  const [serviceId, setServiceId] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -14,7 +15,7 @@ export default function AppointmentForm({ token }) {
     setError('');
     setSuccess('');
 
-    if (!date || !time || !petName || !species) {
+    if (!date || !time || !petName || !species || !serviceId) {
       setError('All fields are required');
       return;
     }
@@ -24,7 +25,12 @@ export default function AppointmentForm({ token }) {
     try {
       const res = await axios.post(
         '/api/appointment',
-        { date: dateTime.toISOString(), petName, species },
+        {
+          date: dateTime.toISOString(),
+          petName,
+          species,
+          serviceId: parseInt(serviceId),
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setSuccess('Appointment created successfully!');
@@ -32,6 +38,7 @@ export default function AppointmentForm({ token }) {
       setTime('');
       setPetName('');
       setSpecies('');
+      setServiceId('');
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to create appointment');
     }
@@ -79,6 +86,16 @@ export default function AppointmentForm({ token }) {
           type="text"
           value={species}
           onChange={(e) => setSpecies(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        Service ID:
+        <input
+          type="number"
+          value={serviceId}
+          onChange={(e) => setServiceId(e.target.value)}
           required
         />
       </label>
