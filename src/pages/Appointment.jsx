@@ -7,24 +7,43 @@ const Appointment = () => {
   const [type, setType] = useState('');
   const [date, setDate] = useState('');
   const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('');
+    setIsError(false);
+
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/appointments', {
-        petName,
-        species,
-        type,
-        date,
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setMessage(res.data.message);
+      const res = await axios.post(
+        'http://localhost:3001/api/appointment',
+        {
+          petName,
+          species,
+          type,
+          date,
+          serviceId: 4,
+	  doctorId: 2,
+	},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setMessage(res.data.message || 'Appointment booked successfully!');
+      setIsError(false);
+
+      // Clear form
+      setPetName('');
+      setSpecies('');
+      setType('');
+      setDate('');
     } catch (err) {
       setMessage(err.response?.data?.error || 'Appointment failed');
+      setIsError(true);
     }
   };
 
@@ -32,15 +51,48 @@ const Appointment = () => {
     <div className="p-4 max-w-md mx-auto">
       <h2 className="text-xl font-bold mb-4">Book Appointment</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input type="text" placeholder="Pet Name" value={petName} onChange={e => setPetName(e.target.value)} className="border p-2 rounded" required />
-        <input type="text" placeholder="Species (e.g. Dog, Cat)" value={species} onChange={e => setSpecies(e.target.value)} className="border p-2 rounded" required />
-        <input type="text" placeholder="Breed/Type" value={type} onChange={e => setType(e.target.value)} className="border p-2 rounded" />
-        <input type="datetime-local" value={date} onChange={e => setDate(e.target.value)} className="border p-2 rounded" required />
-        <button type="submit" className="bg-purple-600 text-white p-2 rounded">Book</button>
+        <input
+          type="text"
+          placeholder="Pet Name"
+          value={petName}
+          onChange={(e) => setPetName(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Species (e.g. Dog, Cat)"
+          value={species}
+          onChange={(e) => setSpecies(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Breed/Type"
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          className="border p-2 rounded"
+        />
+        <input
+          type="datetime-local"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+        <button type="submit" className="bg-purple-600 text-white p-2 rounded">
+          Book
+        </button>
       </form>
-      {message && <p className="mt-4 text-center text-sm text-red-500">{message}</p>}
+      {message && (
+        <p className={`mt-4 text-center text-sm ${isError ? 'text-red-500' : 'text-green-600'}`}>
+          {message}
+        </p>
+      )}
     </div>
   );
 };
 
 export default Appointment;
+

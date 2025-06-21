@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const loginRoute = require('./routes/login'); 
 const registrationRoute = require('./routes/registration');
 const appointmentRoute = require('./routes/appointment');
@@ -7,6 +8,9 @@ const userRoutes = require('./routes/users');
 require('dotenv').config();
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 app.use(express.json());
 app.use('/api/login', loginRoute);

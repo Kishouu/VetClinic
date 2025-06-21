@@ -23,21 +23,41 @@ async function findUserByLogin(login) {
 
 // Login endpoint
 router.post('/', async (req, res) => {
-  const { login, password } = req.body;
-  if (!login || !password) return res.status(400).json({ error: 'Missing login or password' });
+  try {
+    console.log('Login route hit with body:', req.body);
+    const { login, password } = req.body;
 
-  const result = await findUserByLogin(login);
-  if (!result) return res.status(401).json({ error: 'Invalid login' });
+    if (!login || !password) {
+      console.log('Missing login or password');
+      return res.status(400).json({ error: 'Missing login or password' });
+    }
 
-  const { user, role } = result;
+    const result = await findUserByLogin(login);
+    if (!result) {
+      console.log(`Invalid login attempt: ${login}`);
+      return res.status(401).json({ error: 'Invalid login' });
+    }
 
-  // Check password (hashed)
-  const valid = await bcrypt.compare(password, user.password);
-  if (!valid) return res.status(401).json({ error: 'Invalid password' });
+    const { user, role } = result;
 
-  // Generate JWT token with user id and role
-  const token = jwt.sign({ id: user.id, role }, JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token, role });
+    // Check password (hashed)
+    const valid = await bcrypt.compare(password, user.password);
+    if (!valid) {
+      console.log(`Invalid password for user: ${login}`);
+      return res.status(401).json({ error: 'Invalid password' });
+    }
+
+    // Generate JWT token with user id and role
+    const token = jwt.sign({ id: user.id, role }, JWT_SECRET, { expiresIn: '1h' });
+
+    console.log(`Login successful for user: ${login} with role: ${role}`);
+
+    res.json({ token, role });
+  } catch (error) {
+    console.error('Error in login route:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 module.exports = router;
+

@@ -5,22 +5,31 @@ export default function LoginForm({ onLogin }) {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
+
+    if (!login || !password) {
+      setError('Please enter both login and password');
+      setLoading(false);
+      return;
+    }
 
     try {
-      const res = await axios.post('http://localhost:3001/api/login', {
-        login,
-        password,
-      });
+      const res = await axios.post('http://localhost:3001/api/login', { login, password });
 
       if (res.data.token) {
         onLogin(res.data.token);
+      } else {
+        setError('Login failed: no token returned');
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Login failed');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -34,6 +43,7 @@ export default function LoginForm({ onLogin }) {
         value={login}
         onChange={(e) => setLogin(e.target.value)}
         required
+        disabled={loading}
       />
       <input
         type="password"
@@ -41,8 +51,11 @@ export default function LoginForm({ onLogin }) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
+        disabled={loading}
       />
-      <button type="submit">Log In</button>
+      <button type="submit" disabled={loading}>
+        {loading ? 'Logging in...' : 'Log In'}
+      </button>
     </form>
   );
 }
