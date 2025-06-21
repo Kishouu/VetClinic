@@ -1,98 +1,222 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+const express = require('express');
+const { PrismaClient } = require('@prisma/client');
+const authenticateToken = require('../middleware/auth');
 
-const Appointment = () => {
-  const [petName, setPetName] = useState('');
-  const [species, setSpecies] = useState('');
-  const [type, setType] = useState('');
-  const [date, setDate] = useState('');
-  const [message, setMessage] = useState('');
-  const [isError, setIsError] = useState(false);
+const prisma = new PrismaClient();
+const router = express.Router();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage('');
-    setIsError(false);
+// Middleware: require admin role
+function requireAdmin(req, res, next) {
+  if (req.user?.role !== 'admin') {
+    return res.status(403).json({ error: 'Admin access only' });
+  }
+  next();
+}
 
-    try {
-      const token = localStorage.getItem('token');
-      const res = await axios.post(
-        'http://localhost:3001/api/appointment',
-        {
-          petName,
-          species,
-          type,
-          date,
-          doctorId: 2,  // hardcoded doctor id
-          serviceId: 4, // hardcoded service id
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+// Middleware: require doctor or admin
+function requireDoctorOrAdmin(req, res, next) {
+  if (!req.user || !['doctor', 'admin'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Doctor or admin access only' });
+  }
+  next();
+}
 
-      setMessage(res.data.message || 'Appointment created successfully!');
-      setIsError(false);
+// CREATE appointment
 
-      // Clear the form on success
-      setPetName('');
-      setSpecies('');
-      setType('');
-      setDate('');
-    } catch (err) {
-      setMessage(err.response?.data?.error || 'Appointment creation failed');
-      setIsError(true);
+router.post('/', authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  const { petName, date, serviceId, doctorId } = req.body;
+
+  if (!petName || !date || !serviceId) {
+    return res.status(400).json({ error: 'petName, date, and serviceId are required' });
+  }
+
+  try {
+    let pet = await prisma.pet.findFirst({
+      where: { name: petName, userId },
+    });
+
+    if (!pet) {
+      return res.status(404).json({ error: 'Pet not found' });
     }
-  };
 
-  return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Book Appointment</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          placeholder="Pet Name"
-          value={petName}
-          onChange={(e) => setPetName(e.target.value)}
-          className="border p-2 rounded"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Species (e.g. Dog, Cat)"
-          value={species}
-          onChange={(e) => setSpecies(e.target.value)}
-          className="border p-2 rounded"
-          required
-        />
-        <input
-          type="text"
-          placeholder="Breed/Type"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="datetime-local"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="border p-2 rounded"
-          required
-        />
-        <button type="submit" className="bg-purple-600 text-white p-2 rounded">
-          Book
-        </button>
-      </form>
-      {message && (
-        <p className={`mt-4 text-center text-sm ${isError ? 'text-red-500' : 'text-green-600'}`}>
-          {message}
-        </p>
-      )}
-    </div>
-  );
-};
+    let assignedDoctorId = doctorId;
+    if (!doctorId) {
+      const doctors = await prisma.doctor.findMany();
+      if (doctors.length === 0) return res.status(404).json({ error: 'No available doctors' });
+      assignedDoctorId = doctors[0].id;
+    } else {
+      const doctor = await prisma.doctor.findUnique({ where: { id: doctorId } });
+      if (!doctor) return res.status(404).json({ error: 'Doctor not found' });
+    }
 
-export default Appointment;
+    const service = await prisma.service.findUnique({ where: { id: serviceId } });
+    if (!service) {
+      return res.status(404).json({ error: 'Service not found' });
+    }
 
+    const appointment = await prisma.appointment.create({
+      data: {
+        date: new Date(date),
+        userId,
+        doctorId: assignedDoctorId,
+        serviceId,
+        petId: pet.id,
+      },
+      include: { pet: true, doctor: true, service: true, user: true },
+    });
+
+    res.status(201).json({ message: 'Appointment created successfully', appointment });
+  } catch (err) {
+    console.error('Appointment creation error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/*
+router.post('/', authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  const { date, notes, petName, species, breed, doctorId, serviceId } = req.body;
+
+  if (!date || !petName || !species || !breed || !serviceId) {
+    return res.status(400).json({
+      error: 'Date, petName, species, and serviceId are required',
+    });
+  }
+
+  try {
+    let pet = await prisma.pet.findFirst({
+      where: { name: petName, species, breed, userId },
+    });
+
+    if (!pet) {
+      pet = await prisma.pet.create({
+        data: { name: petName, species, breed, userId },
+      });
+    }
+
+    let assignedDoctorId = doctorId;
+    if (!doctorId) {
+      const doctors = await prisma.doctor.findMany();
+      if (doctors.length === 0) return res.status(404).json({ error: 'No available doctors' });
+      assignedDoctorId = doctors[0].id;
+    } else {
+      const doctor = await prisma.doctor.findUnique({ where: { id: doctorId } });
+      if (!doctor) return res.status(404).json({ error: 'Doctor not found' });
+    }
+
+    const service = await prisma.service.findUnique({ where: { id: serviceId } });
+    if (!service) {
+      return res.status(404).json({ error: 'Service not found' });
+    }
+
+    const appointment = await prisma.appointment.create({
+      data: {
+        date: new Date(date),
+        notes: notes || '',
+        userId,
+        doctorId: assignedDoctorId,
+        serviceId,
+        petId: pet.id,
+      },
+      include: {
+        pet: true,
+        doctor: true,
+        service: true,
+        user: true,
+      },
+    });
+
+    res.status(201).json({ message: 'Appointment created successfully', appointment });
+  } catch (err) {
+    console.error('Appointment error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+*/
+// GET all appointments (admin only)
+router.get('/', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    const appointments = await prisma.appointment.findMany({
+      include: { pet: true, doctor: true, user: true, service: true },
+    });
+    res.json(appointments);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch appointments' });
+  }
+});
+
+// GET appointments for logged-in user
+router.get('/user', authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const appointments = await prisma.appointment.findMany({
+      where: { userId },
+      include: { pet: true, doctor: true, service: true },
+    });
+    res.json(appointments);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch user appointments' });
+  }
+});
+
+// GET appointments for a specific doctor (admin only)
+router.get('/doctor/:doctorId', authenticateToken, requireDoctorOrAdmin, async (req, res) => {
+  const doctorId = parseInt(req.params.doctorId);
+  try {
+    const appointments = await prisma.appointment.findMany({
+      where: { doctorId },
+      include: { pet: true, user: true, service: true },
+    });
+    res.json(appointments);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch doctor appointments' });
+  }
+});
+
+// UPDATE appointment (doctor or admin only)
+router.put('/:id', authenticateToken, requireDoctorOrAdmin, async (req, res) => {
+  const appointmentId = parseInt(req.params.id);
+  const { date, notes, serviceId, doctorId } = req.body;
+
+  try {
+    if (serviceId) {
+      const service = await prisma.service.findUnique({ where: { id: serviceId } });
+      if (!service) return res.status(404).json({ error: 'Service not found' });
+    }
+
+    if (doctorId) {
+      const doctor = await prisma.doctor.findUnique({ where: { id: doctorId } });
+      if (!doctor) return res.status(404).json({ error: 'Doctor not found' });
+    }
+
+    const updatedAppointment = await prisma.appointment.update({
+      where: { id: appointmentId },
+      data: {
+        date: date ? new Date(date) : undefined,
+        notes,
+        serviceId,
+        doctorId,
+      },
+      include: { pet: true, doctor: true, service: true },
+    });
+
+    res.json({ message: 'Appointment updated', appointment: updatedAppointment });
+  } catch (err) {
+    console.error(err);
+    res.status(404).json({ error: 'Appointment not found or update failed' });
+  }
+});
+
+// DELETE appointment (admin only)
+router.delete('/:id', authenticateToken, requireDoctorOrAdmin, async (req, res) => {
+  const appointmentId = parseInt(req.params.id);
+  try {
+    await prisma.appointment.delete({ where: { id: appointmentId } });
+    res.json({ message: 'Appointment deleted' });
+  } catch (err) {
+    res.status(404).json({ error: 'Appointment not found or deletion failed' });
+  }
+});
+
+module.exports = router;

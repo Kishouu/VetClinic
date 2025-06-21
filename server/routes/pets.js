@@ -5,6 +5,14 @@ const authenticateToken = require('../middleware/auth');
 const prisma = new PrismaClient();
 const router = express.Router();
 
+// Middleware: require doctor or admin role
+function requireDoctorOrAdmin(req, res, next) {
+  if (!req.user || !['doctor', 'admin'].includes(req.user.role)) {
+    return res.status(403).json({ error: 'Doctor or admin access only' });
+  }
+  next();
+}
+
 // CREATE pet
 router.post('/', authenticateToken, async (req, res) => {
   const userId = req.user.id;
@@ -25,8 +33,8 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
-// GET all pets (admin-like view)
-router.get('/', authenticateToken, async (req, res) => {
+// GET all pets (admin/doctor only)
+router.get('/', authenticateToken, requireDoctorOrAdmin, async (req, res) => {
   try {
     const pets = await prisma.pet.findMany({
       include: {
