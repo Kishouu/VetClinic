@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
 import SignInPage from './pages/SignInPage';
 import Account from './pages/Account';
-import Appointment from './pages/Appointment'; // ✅ Make sure this path is correct
+import Appointment from './pages/Appointment';
+import Navbar from './components/Navbar.jsx';
+import './style.css'; // Ensure styles are included once
 
 export default function App() {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
@@ -22,32 +24,16 @@ export default function App() {
 
   return (
     <Router>
-      <nav style={{ padding: '1rem', background: '#eee' }}>
-        <Link to="/" style={{ margin: '0 1rem' }}>Home</Link>
-
-        {!isLoggedIn && (
-          <Link to="/signin" style={{ margin: '0 1rem' }}>
-            Sign In
-          </Link>
-        )}
-
-        {isLoggedIn && (
-          <>
-            <Link to="/appointments" style={{ margin: '0 1rem' }}>Appointments</Link> {/* ✅ */}
-            <Link to="/account" style={{ margin: '0 1rem' }}>My Account</Link>
-            <button onClick={handleLogout} style={{ marginLeft: '1rem' }}>
-              Logout
-            </button>
-          </>
-        )}
-      </nav>
+      <Navbar isLoggedIn={isLoggedIn} onLogout={handleLogout} />
 
       <Routes>
         <Route path="/" element={<Home />} />
 
         <Route
           path="/signin"
-          element={isLoggedIn ? <Navigate to="/" replace /> : <SignInPage onLogin={handleLogin} />}
+          element={
+            isLoggedIn ? <Navigate to="/" replace /> : <SignInPage onLogin={handleLogin} />
+          }
         />
 
         <Route
@@ -56,8 +42,8 @@ export default function App() {
         />
 
         <Route
-          path="/appointments"
-          element={isLoggedIn ? <Appointment /> : <Navigate to="/signin" replace />} // ✅
+          path="/appointment"
+          element={isLoggedIn ? <Appointment /> : <Navigate to="/signin" replace />}
         />
       </Routes>
     </Router>
