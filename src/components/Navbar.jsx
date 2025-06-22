@@ -17,19 +17,17 @@ export default function Navbar({ isLoggedIn, onLogout }) {
 
       <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
         <NavLink to="/" className="nav-link" onClick={closeMenu}>Home</NavLink>
-        {!isLoggedIn && (
+        <NavLink to="/contact" className="nav-link" onClick={closeMenu}>Contact Us</NavLink>
+
+        {!isLoggedIn ? (
+          <NavLink to="/signin" className="nav-link" onClick={closeMenu}>Sign In</NavLink>
+        ) : (
           <>
-            <NavLink to="/register" className="nav-link" onClick={closeMenu}>Register</NavLink>
-            <NavLink to="/login" className="nav-link" onClick={closeMenu}>Login</NavLink>
-          </>
-        )}
-        {isLoggedIn && (
-          <>
+            <NavLink to="/appointment" className="nav-link" onClick={closeMenu}>Book</NavLink>
             <NavLink to="/account" className="nav-link" onClick={closeMenu}>My Account</NavLink>
             <button className="nav-button" onClick={() => { onLogout(); closeMenu(); }}>Logout</button>
           </>
         )}
-        <NavLink to="/appointment" className="nav-link" onClick={closeMenu}>Book</NavLink>
       </div>
     </nav>
   );
