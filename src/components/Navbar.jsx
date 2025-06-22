@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import '../style.css';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './UI/Navbar.css';
+import contactBg from '../assets/ContactUsHeader.png';  // adjust path if needed
 
 export default function Navbar({ isLoggedIn, onLogout }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeMenu = () => setMenuOpen(false);
+  const location = useLocation();
+  const isContactPage = location.pathname === '/contact';
+
+  const navbarStyle = isContactPage
+    ? {
+        backgroundImage: `url(${contactBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        color: 'white',
+      }
+    : {};
 
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">WetClinic</div>
-
-      <div className="burger" onClick={toggleMenu}>
-        ☰
-      </div>
-
-      <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
-        <NavLink to="/" className="nav-link" onClick={closeMenu}>Home</NavLink>
-        <NavLink to="/contact" className="nav-link" onClick={closeMenu}>Contact Us</NavLink>
+    <nav className="navbar" style={navbarStyle}>
+      <ul className="nav-links">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
 
         {!isLoggedIn ? (
-          <NavLink to="/signin" className="nav-link" onClick={closeMenu}>Sign In</NavLink>
+          <li><Link to="/signin">Sign In</Link></li>
         ) : (
           <>
-            <NavLink to="/appointment" className="nav-link" onClick={closeMenu}>Book</NavLink>
-            <NavLink to="/account" className="nav-link" onClick={closeMenu}>My Account</NavLink>
-            <button className="nav-button" onClick={() => { onLogout(); closeMenu(); }}>Logout</button>
+            <li><Link to="/appointment">Book</Link></li>
+            <li><Link to="/account">My Account</Link></li>
+            <li><button onClick={onLogout}>Logout</button></li>
           </>
         )}
-      </div>
+      </ul>
     </nav>
   );
 }
