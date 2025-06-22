@@ -7,6 +7,7 @@ import Account from './pages/Account';
 import Appointment from './pages/Appointment';
 import ContactUs from './pages/ContactUs';
 import Navbar from './components/Navbar';
+import { Footer } from './components/Footer';  // <-- named import here
 import './style.css';
 
 export default function App() {
@@ -43,8 +44,9 @@ export default function App() {
           element={isLoggedIn ? <Appointment /> : <Navigate to="/signin" replace />}
         />
       </Routes>
+
+      <Footer />  {/* Add footer here, outside Routes */}
     </Router>
   );
 }
-
 
