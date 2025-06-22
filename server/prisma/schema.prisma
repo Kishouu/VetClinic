@@ -41,7 +41,7 @@ model Appointment {
   doctorId   Int
   serviceId  Int
   date       DateTime
-  notes      String
+  notes      String?
   petId      Int
   doctor     Doctor   @relation(fields: [doctorId], references: [id])
   pet        Pet      @relation(fields: [petId], references: [id])

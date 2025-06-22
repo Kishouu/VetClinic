@@ -1,33 +1,109 @@
+/* Navbar root styles */
 .navbar {
   display: flex;
-  justify-content: center; /* or space-between if you want left & right items */
-  align-items: center;     /* vertical center */
-  padding: 1rem 2rem;      /* add horizontal padding */
+  flex-direction: column;
+  padding: 1rem 2rem;
   position: relative;
-  width: 100vw;            /* full viewport width */
-  height: 80px;            /* fixed height or whatever you prefer */
-  color: inherit;
   z-index: 10;
-  box-sizing: border-box;
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  background-color: #000; /* default black bg, can be overridden per page */
 }
 
+/* Top bar: DrPaw + Nav */
+.navbar-top {
+  display: flex;
+  justify-content: space-between; /* DrPaw left, nav right */
+  align-items: center;             /* vertical center */
+  width: 100%;
+  height: 60px;                   /* fixed height for vertical alignment */
+}
+
+/* DrPaw container */
+.navbar-logo-position {
+  display: flex;
+  align-items: center;            /* vertical center */
+}
+
+/* DrPaw link */
+.navbar-title {
+  font-family: 'Bonheur Royale', cursive;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white !important;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Nav links container */
 .nav-links {
   display: flex;
   gap: 1.5rem;
   list-style: none;
-  z-index: 20; /* make sure links appear above background */
-  position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  align-items: center;
 }
 
+/* Nav links style */
 .nav-links li a,
 .nav-links li button {
   text-decoration: none;
-  color: inherit;
+  color: white;
   background: none;
   border: none;
   cursor: pointer;
+  font-weight: 600;
   font-size: 1.1rem;
-  font-weight: bold;
+  padding: 0.2rem 0;
+}
+
+/* Burger menu button */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
   z-index: 20;
+  margin-left: 1rem;
+}
+
+.burger-menu div {
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  margin: 3px 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  /* Show burger menu */
+  .burger-menu {
+    display: flex;
+  }
+
+  /* Hide nav links by default */
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 6px;
+    display: none;
+    min-width: 150px;
+  }
+
+  /* Show nav when active */
+  .nav-links.active {
+    display: flex;
+  }
 }
 
