@@ -1,95 +1,106 @@
-.contact-header {
-    position: relative;
-    text-align: center;
-    color: white;
-}
-
-.header-image {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    filter: brightness(60%);
-}
-
-.contact-header h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    margin: 0;
-}
-
-.contact-content {
-    padding: 2rem;
-    max-width: 600px;
-    margin: auto;
-}
-
-.contact-form label {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-form input,
-.contact-form textarea {
-    padding: 0,75rem;
-    margin-top: 0.25rem;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.contact-form button {
-    margin-top: 1.5rem;
-    padding: 0.75rem;
-    font-size: 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.contact-form button:hover {
-    background-color: #0056b3;
-}
-
-.contact-page {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.contact-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.header-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.contact-content {
+.contact-us {
+  align-items: flex-start;
+  background-color: #5656c6; /* solid background color */
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  position: relative;
 }
 
-.contact-form {
+.contact-us .background {
+  align-items: center;
+  align-self: stretch;
+  background-color: #f5f5f5;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
-}
-
-.map-container {
-  margin-top: 1rem;
+  gap: 100px;
+  min-height: 1200px;
+  position: relative;
   width: 100%;
-  height: 300px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
+  padding: 0 60px; /* same horizontal padding as GetInTouch */
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.contact-us .link {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  position: relative;
+  width: 2000px; /* match map width */
+  max-width: 100%;
+  margin: 0 auto; /* center horizontally */
+}
+
+.contact-us .photo-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.contact-us .photo {
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 508px;
+  justify-content: flex-start;
+  padding: 20px 24px 24px; /* reduced top padding to move image higher */
+  position: relative;
+  width: 100%;
+}
+
+.contact-us .img {
+  height: 508px;
+  object-fit: cover;
+  margin: 0 auto; /* center horizontally, remove top margin */
+  max-width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 1200px) {
+  .contact-us .background {
+    padding: 0 40px;
+  }
+
+  .contact-us .link {
+    width: 100%;
+    max-width: 828px;
+  }
+}
+
+@media (max-width: 900px) {
+  .contact-us .background {
+    gap: 40px;
+  }
+
+  .contact-us .link {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .contact-us .photo-wrapper {
+    height: auto;
+    justify-content: center;
+  }
+
+  .contact-us .photo {
+    height: auto;
+    padding: 10px 12px 12px;
+  }
+
+  .contact-us .img {
+    height: auto;
+    max-height: 300px;
+    width: 100%;
+  }
 }
 

@@ -1,12 +1,20 @@
 .footer {
-  --style: #FFFFFF; /* set text color to white */
+  --style: #FFFFFF; /* text color white */
   align-items: center;
   display: flex;
   justify-content: center;
   overflow: hidden;
   position: relative;
+  width: 100vw;
+  background-color: #2A2A2A; /* footer background only */
+  border-top: 2px solid #FFFFFF;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  box-shadow: none;
 }
 
+/* rest unchanged from before */
 .footer .container {
   align-items: flex-start;
   display: flex;
@@ -19,7 +27,7 @@
 .footer .footer-desktop {
   align-items: center;
   align-self: stretch;
-  background-color: #2A2A2A; /* updated dark background */
+  background-color: #2A2A2A;
   display: flex;
   flex: 0 0 auto;
   justify-content: center;
@@ -77,10 +85,10 @@
 
 .footer .text-wrapper {
   color: #FFFFFF;
-  font-family: "Bonheur Royale", cursive; /* ensure Bonheur Royale is loaded */
+  font-family: "Bonheur Royale", cursive;
   font-size: 64px;
   font-weight: 400;
-  height: auto; /* updated for flexibility */
+  height: auto;
   letter-spacing: 0;
   line-height: 64px;
   margin: 0 auto;
@@ -89,7 +97,6 @@
   white-space: nowrap;
   width: fit-content;
 }
-
 
 .footer .text {
   align-items: center;
@@ -221,7 +228,6 @@
   width: 1760px;
 }
 
-/* Optional: Make footer links white too */
 .footer a {
   color: #FFFFFF;
   text-decoration: none;
