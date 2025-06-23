@@ -3,6 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 import './UI/Navbar.css';
 import contactHeader from '../assets/ContactUsHeader.png';
 import aboutUsHeader from '../assets/AboutUsHeader.png';
+import serviceHeader from '../assets/ServicesHeader.png';
+import appointmentHeader from '../assets/AppointmentHeader.png';
+import accountHeader from '../assets/AccountHeader.png';
 import homeHeader from '../assets/HomeHeader.png';
 
 export default function Navbar({ isLoggedIn, onLogout }) {
@@ -10,6 +13,9 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   const isContactPage = location.pathname === '/contact';
   const isAboutPage = location.pathname === '/about';
   const isLoginPage = location.pathname === '/signin';
+  const isServicePage = location.pathname === '/services';
+  const isAppointmentPage = location.pathname === '/appointment';
+  const isAccountPage = location.pathname === '/account';
   const isHomePage = location.pathname === '/';
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -37,14 +43,51 @@ export default function Navbar({ isLoggedIn, onLogout }) {
     position: 'relative',
   };
   const loginBgStyle = {
-  backgroundColor: '#2A2A2A', // semi-transparent background
-  color: 'transparent',
-  minHeight: '1px',
-  width: '100%',
-  padding: '1rem 2rem',
-  position: 'relative',
+    backgroundColor: '#2A2A2A', // semi-transparent background
+    color: 'transparent',
+    minHeight: '1px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
   };
-    const homeBgStyle = {
+
+  const servicesBgStyle = {
+    backgroundImage: `url(${serviceHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '220px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+
+  const appointmentBgStyle = {
+    backgroundImage: `url(${appointmentHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '220px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+  
+  const accountBgStyle = {
+    backgroundImage: `url(${accountHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '220px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+
+  const homeBgStyle = {
     backgroundImage: `url(${homeHeader})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -64,6 +107,12 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   ? aboutBgStyle
   : isLoginPage
   ? loginBgStyle
+  : isServicePage
+  ? servicesBgStyle
+  : isAppointmentPage
+  ? appointmentBgStyle
+  : isAccountPage
+  ? accountBgStyle
   : isHomePage
   ?homeBgStyle
   :{};
@@ -178,6 +227,43 @@ export default function Navbar({ isLoggedIn, onLogout }) {
             | About Us
           </div>
           <div className="page-title">ABOUT US</div>
+        </div>
+      )}
+      {isServicePage && (
+        <div className="navbar-info-position">
+          <div className="breadcrumb">
+            <Link to="/" style={{ color: 'white' }}>
+              Home
+            </Link>{' '}
+            | Services
+          </div>
+          <div className="page-title">OUR SERVICES</div>
+        </div>
+      )}
+      {isAccountPage && (
+        <div className="navbar-info-position">
+          <div className="breadcrumb">
+            <Link to="/" style={{ color: 'white' }}>
+              Home
+            </Link>{' '}
+            | Account
+          </div>
+          <div className="page-title">MY ACCOUNT</div>
+        </div>
+      )}
+      {isAppointmentPage && (
+        <div className="navbar-info-position">
+          <div className="breadcrumb">
+            <Link to="/" style={{ color: 'white' }}>
+              Home
+            </Link>{' '}
+            |
+            <Link to="/services" style={{ color: 'white' }}>
+              Services
+            </Link>{' '}
+            | Book
+          </div>
+          <div className="page-title">BOOK APPOINTMENT</div>
         </div>
       )}
       {isHomePage && (

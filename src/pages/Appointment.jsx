@@ -127,25 +127,75 @@ const Appointment = () => {
           <img src={appointmentImg} alt="Appointment illustration" />
         </div>
 
-        <div className="appointment-form-container">
-          <AppointmentForm
-            petName={petName}
-            setPetName={setPetName}
-            pets={pets}
-            date={date}
-            setDate={setDate}
-            services={services}
-            serviceId={serviceId}
-            setServiceId={setServiceId}
-            doctors={doctors}
-            doctorId={doctorId}
-            setDoctorId={setDoctorId}
-            handleSubmit={handleSubmit}
-            loadingDoctors={loadingDoctors}
-            message={message}
-            isError={isError}
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+
+        {/* Pet Dropdown */}
+        <select
+          value={petName}
+          onChange={(e) => setPetName(e.target.value)}
+          className="border p-2 rounded"
+          required
+        >
+          <option value="">Select Pet</option>
+          {pets.map((pet) => (
+            <option key={pet.id} value={pet.name}>
+              {pet.name}
+            </option>
+          ))}
+        </select>
+
+        <input
+          type="datetime-local"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="border p-2 rounded"
+          required
+        />
+
+        <select
+          value={serviceId}
+          onChange={(e) => setServiceId(e.target.value)}
+          className="border p-2 rounded"
+          required
+        >
+          <option value="">Select Service</option>
+          {services.map((service) => (
+            <option key={service.id} value={service.id}>
+              {service.name}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={doctorId}
+          onChange={(e) => setDoctorId(e.target.value)}
+          className="border p-2 rounded"
+          required
+          disabled={!serviceId || loadingDoctors}
+        >
+          <option value="">
+            {loadingDoctors ? 'Loading doctors...' : 'Select Doctor'}
+          </option>
+          {doctors.map((doc) => (
+            <option key={doc.id} value={doc.id}>
+              {doc.login}
+            </option>
+          ))}
+        </select>
+
+        {!loadingDoctors && serviceId && doctors.length === 0 && (
+          <p className="text-sm text-red-500">No doctors available for this service.</p>
+        )}
+
+        <button type="submit" className="bg-purple-600 text-white p-2 rounded">
+          Book Appointment
+        </button>
+      </form>
+        {message && (
+        <p className={`mt-4 text-center text-sm ${isError ? 'text-red-500' : 'text-green-600'}`}>
+          {message}
+        </p>
+      )}
       </div>
     </>
   );

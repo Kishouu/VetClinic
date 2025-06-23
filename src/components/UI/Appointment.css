@@ -47,3 +47,48 @@
 }
 
 
+.appointment-form {
+  background-color: #d9d9d9;
+  padding: 2rem;
+  max-width: 500px;
+  margin: auto;
+  border-radius: 25px;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.appointment-input,
+.appointment-button {
+  width: 441px;
+  height: 66px;
+  border-radius: 25px;
+  border: none;
+  padding: 0 1rem;
+  font-size: 16px;
+  color: #2a2a2a;
+  background-color: #f9fbf3;
+}
+
+.appointment-button {
+  background-color: #2a2a2a;
+  color: #f9fbf3;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.appointment-button:hover {
+  opacity: 0.9;
+}
+
+.error-msg {
+  color: red;
+  font-size: 14px;
+}
+
+.success-msg {
+  color: green;
+  font-size: 14px;
+}
+
