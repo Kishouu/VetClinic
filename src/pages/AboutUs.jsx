@@ -19,6 +19,7 @@ export default function AboutUs() {
     <>
       <Helmet>
         <title>About Us </title>
+        <body className="dark-page" />
       </Helmet>
 
       <section className="about-wrapper">

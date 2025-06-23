@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 const Appointment = () => {
   const [petName, setPetName] = useState('');
@@ -124,6 +125,11 @@ const Appointment = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <title>Book An Appointment </title>
+      <body className="light-page" />
+    </Helmet>
     <div className="p-4 max-w-md mx-auto">
       <h2 className="text-xl font-bold mb-4">Book Appointment</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -197,6 +203,7 @@ const Appointment = () => {
         </p>
       )}
     </div>
+    </>
   );
 };
 

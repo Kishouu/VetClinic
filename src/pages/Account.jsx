@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 export default function Account() {
   const [user, setUser] = useState(null);
@@ -52,6 +53,11 @@ export default function Account() {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>My Account</title>
+      <body className="light-page" />
+    </Helmet>
     <div className="max-w-4xl mx-auto p-4">
       <h2 className="text-2xl font-bold mb-6">Welcome, {user.login || 'User'}!</h2>
 
@@ -113,5 +119,6 @@ export default function Account() {
         )}
       </section>
     </div>
+    </>
   );
 }

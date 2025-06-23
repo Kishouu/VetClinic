@@ -2,11 +2,18 @@ import React, { useState } from 'react';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import '../components/UI/SignInPage.css';
+import { Helmet } from 'react-helmet';
 
 export default function SignInPage({ onLogin }) {
   const [showRegister, setShowRegister] = useState(false);
 
   return (
+    <>
+    <Helmet>
+      <title>Welcome!</title>
+      <body className="dark-page" />
+    </Helmet>
+    
     <div className="signin-background">
       <div className="signin-container">
         <div className="signin-card">
@@ -40,5 +47,6 @@ export default function SignInPage({ onLogin }) {
         </div>
       </div>
     </div>
+    </>
   );
 }

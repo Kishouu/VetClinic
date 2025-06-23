@@ -11,6 +11,7 @@ const ContactUs = ({ isLoggedIn }) => {
     <>
       <Helmet>
         <title>Contact Us</title>
+        <body className="dark-page" />
       </Helmet>
 
       <div className="contact-us">

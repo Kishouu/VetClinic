@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Home</title>
-        <body className="home-page" />
+        <body className="light-page" />
       </Helmet>
 
       {/* Values Section */}
