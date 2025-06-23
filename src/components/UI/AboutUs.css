@@ -1,0 +1,105 @@
+/* === ABOUT US PAGE STYLES === */
+
+.about-wrapper {
+  font-family: 'Commissioner', sans-serif;
+  padding: 2rem;
+}
+
+/* --- THREE-COLUMN TOP SECTION --- */
+.about-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* LEFT COLUMN: Title */
+.about-col.title h2 {
+  font-family: 'Commissioner', sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 40px; /* 100% */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin: 0;
+  text-align: left;
+}
+
+/* PARAGRAPH COLUMNS */
+.about-col p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+/* --- IMAGE ROW: Two Images Side-by-Side --- */
+.about-images-row {
+  display: flex;
+  justify-content: center;
+  gap: 45px; /* exact space between images */
+  margin-bottom: 3rem;
+}
+
+.image-fixed {
+  height: 337px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.image-left {
+  width: 335.19px;
+}
+
+.image-right {
+  width: 932.13px;
+}
+
+/* --- TEAM SECTION --- */
+.team-section {
+  background-color: #d6d1cb;
+  padding: 2rem;
+  text-align: center;
+}
+
+.team-section h3 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.team-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.team-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 200px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.team-card h4 {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.team-card p {
+  color: #666;
+  font-size: 0.95rem;
+}

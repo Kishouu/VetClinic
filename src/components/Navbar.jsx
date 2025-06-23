@@ -2,34 +2,47 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './UI/Navbar.css';
 import contactHeader from '../assets/ContactUsHeader.png';
+import aboutUsHeader from '../assets/AboutUsHeader.png';
 
 export default function Navbar({ isLoggedIn, onLogout }) {
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
+  const isAboutPage = location.pathname === '/about';
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Special background style for Contact page
-  const contactBgStyle = isContactPage
-    ? {
-        backgroundImage: `url(${contactHeader})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        color: 'white',
-        minHeight: '220px',
-        width: '100%',
-        padding: '1rem 2rem',
-        position: 'relative',
-      }
+  const contactBgStyle = {
+    backgroundImage: `url(${contactHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '220px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+
+  const aboutBgStyle = {
+    backgroundImage: `url(${aboutUsHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '220px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+
+  const navbarBgStyle = isContactPage
+    ? contactBgStyle
+    : isAboutPage
+    ? aboutBgStyle
     : {};
 
-  // Toggle burger menu open/close
   const toggleMenu = () => setMenuOpen((prev) => !prev);
-
-  // Close menu on link/button click
   const closeMenu = () => setMenuOpen(false);
 
-  // Handle keyboard events on burger menu for accessibility
   const handleBurgerKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -38,7 +51,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   };
 
   return (
-    <nav className="navbar" style={contactBgStyle}>
+    <nav className="navbar" style={navbarBgStyle}>
       <div className="navbar-top">
         <div className="navbar-logo-position">
           <Link to="/" className="navbar-title" onClick={closeMenu}>
@@ -64,57 +77,75 @@ export default function Navbar({ isLoggedIn, onLogout }) {
         <ul id="primary-navigation" className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <li>
             <Link to="/contact" onClick={closeMenu}>
-              Contact Us
+              CONTACT
             </Link>
           </li>
-
+          <li>
+            <Link to="/about" onClick={closeMenu}>
+              ABOUT 
+            </Link>
+          </li>
           {!isLoggedIn ? (
             <li>
               <Link to="/signin" onClick={closeMenu}>
-                Sign In
+                SIGN IN
               </Link>
             </li>
           ) : (
             <>
               <li>
                 <Link to="/appointment" onClick={closeMenu}>
-                  Book
+                  BOOK
                 </Link>
               </li>
               <li>
                 <Link to="/account" onClick={closeMenu}>
-                  My Account
+                  MY ACCOUNT
                 </Link>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    onLogout();
-                    closeMenu();
-                  }}
-                  type="button"
-                >
-                  Logout
-                </button>
               </li>
             </>
           )}
         </ul>
+
+        {isLoggedIn && (
+          <div className="navbar-logout">
+            <button
+              onClick={() => {
+                onLogout();
+                closeMenu();
+              }}
+              type="button"
+            >
+              LOG OUT
+            </button>
+          </div>
+          
+        )}
       </div>
 
-      {/* Additional info for Contact page */}
       {isContactPage && (
         <div className="navbar-info-position">
           <div className="breadcrumb">
             <Link to="/" style={{ color: 'white' }}>
               Home
             </Link>{' '}
-            / Contact Us
+            | Contact Us
           </div>
-          <div className="page-title">Contact Us</div>
+          <div className="page-title">CONTACT US</div>
+        </div>
+      )}
+
+      {isAboutPage && (
+        <div className="navbar-info-position">
+          <div className="breadcrumb">
+            <Link to="/" style={{ color: 'white' }}>
+              Home
+            </Link>{' '}
+            | About Us
+          </div>
+          <div className="page-title">ABOUT US</div>
         </div>
       )}
     </nav>
   );
 }
-

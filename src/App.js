@@ -6,6 +6,7 @@ import SignInPage from './pages/SignInPage';
 import Account from './pages/Account';
 import Appointment from './pages/Appointment';
 import ContactUs from './pages/ContactUs';
+import AboutUs from './pages/AboutUs';
 import Navbar from './components/Navbar';
 import { Footer } from './components/Footer';  // <-- named import here
 import './style.css';
@@ -31,6 +32,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route
           path="/signin"
           element={isLoggedIn ? <Navigate to="/" replace /> : <SignInPage onLogin={handleLogin} />}
