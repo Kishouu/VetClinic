@@ -41,7 +41,7 @@
   display: flex;
   justify-content: center;
   gap: 45px; /* exact space between images */
-  margin-bottom: 3rem;
+  margin-bottom: 5rem; /* increased space */
 }
 
 .image-fixed {
@@ -59,47 +59,145 @@
 }
 
 /* --- TEAM SECTION --- */
-.team-section {
-  background-color: #d6d1cb;
-  padding: 2rem;
-  text-align: center;
-}
 
-.team-section h3 {
+.team-title {
   font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 2rem;
+  line-height: 1.2;
+  text-align: center;
+  color: black;
 }
 
-.team-grid {
+.team-title .team-word {
+  color: #d9d9d9;
+}
+
+.team-grid.simple-grid {
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
 }
 
-.team-card {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1rem;
-  width: 200px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.team-card img {
-  width: 100%;
+.team-grid.simple-grid img {
+  width: auto;    /* Show original size */
   height: auto;
   border-radius: 8px;
-  margin-bottom: 1rem;
+  box-shadow: none;
+  padding: 0;
+  background: none;
+  margin: 0;
+  border: none;
 }
 
-.team-card h4 {
-  font-size: 1.1rem;
-  margin: 0.5rem 0 0.25rem;
+/* Logo container styling */
+.logo-container {
+  margin-top: 4rem;  /* vertical gap */
+  width: 100vw;      /* full viewport width */
+  overflow: hidden;  /* prevent horizontal scroll */
+  margin-left: calc(-50vw + 50%);
+  text-align: center;
+  border: none;
 }
 
-.team-card p {
-  color: #666;
-  font-size: 0.95rem;
+.logo-container img {
+  width: 100%;    /* stretch full width */
+  height: 100px;
+  display: block;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
 }
+
+/* Gallery container centered and same gap as logo */
+.gallery-container {
+  margin-top: 4rem;  /* vertical gap */
+  text-align: center;
+  border: none;
+}
+
+.gallery-container img {
+  width: auto;    /* original size */
+  height: auto;
+  max-width: none;
+  display: inline-block;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  background: none;
+  margin: 0;
+  outline: none;
+}
+/* Twice the gap from doctors/logo to gallery, and from gallery to services */
+.link-to-services-container {
+  margin-top: 8rem; /* twice the 4rem gap used before */
+  text-align: center;
+  margin-bottom: 20px; /* gap before footer */
+}
+
+.link-to-services-container img {
+  width: auto;
+  height: auto;
+  max-width: none;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  display: inline-block;
+}
+.values-section {
+  background-color: #2a2a2a;
+  padding: 4rem 2rem 60px 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.values-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  gap: 2rem;
+}
+
+.values-image {
+  max-width: 100%;
+  height: auto;
+  flex: 1 1 60%;
+  border-radius: 8px;
+}
+
+.values-text {
+  flex: 1 1 30%;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.book-button {
+  background-color: #F9FBF3;
+  color: #2a2a2a;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 456px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  display: inline-block;
+  margin-top: -1050px;
+}
+
+.book-button:hover {
+  background-color: #e7e9db;
+}
+

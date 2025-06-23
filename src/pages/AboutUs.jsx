@@ -1,10 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../components/UI/AboutUs.css';
 
 import dogNailTrim from '../assets/dog-nail-trim.png';
 import dogEarCheck from '../assets/dog-ear-check.png';
-import devonLane from '../assets/devon-lane.png';
-import marvinMcKinney from '../assets/marvin-mckinney.png';
+import values from '../assets/Values.png';
+import arlene from '../assets/Arlene.png';
+import devon from '../assets/Devon.png';
+import bessie from '../assets/Bessie.png';
+import ronald from '../assets/Ronald.png';
+import ipsumlogo from '../assets/logoipsum.png';    
+import gallery from '../assets/Gallery.png';       
+import linkToServices from '../assets/CatLinkToServices.png';
 
 export default function AboutUs() {
   return (
@@ -27,26 +34,51 @@ export default function AboutUs() {
         </div>
       </div>
 
-      <div className="about-images-row">
+      <div className="about-images-row spaced">
         <img src={dogNailTrim} alt="Dog nail trim" className="image-fixed image-left" />
         <img src={dogEarCheck} alt="Dog ear check" className="image-fixed image-right" />
       </div>
-
+{/* New section with values image and button on the right */}
+<div className="values-section">
+  <div className="values-content">
+    <img src={values} alt="Our Values" className="values-image" />
+    <div className="values-text">
+      <Link to="/appointment" className="book-button">
+        Book your visit
+      </Link>
+    </div>
+  </div>
+</div>
       <div className="team-section">
-        <h3>OUR TEAM</h3>
-        <div className="team-grid">
-          <div className="team-card">
-            <img src={devonLane} alt="Devon Lane" />
-            <h4>Devon Lane</h4>
-            <p>Vet</p>
-          </div>
-          <div className="team-card">
-            <img src={marvinMcKinney} alt="Marvin McKinney" />
-            <h4>Marvin McKinney</h4>
-            <p>Vet</p>
-          </div>
+        <h3 className="team-title">
+          OUR <span className="team-word">TEAM</span><br />
+          OF DEDICATION
+        </h3>
+        <div className="team-grid simple-grid">
+          <img src={devon} alt="Devon Lane" />
+          <img src={arlene} alt="Arlene McCoy" />
+          <img src={bessie} alt="Bessie Cooper" />
+          <img src={ronald} alt="Ronald Richards" />
+        </div>
+
+        {/* Logo below doctors with gap */}
+        <div className="logo-container">
+          <img src={ipsumlogo} alt="Clinic Logo" />
+        </div>
+
+        {/* Gallery below logo, centered */}
+        <div className="gallery-container">
+          <img src={gallery} alt="Gallery" />
+        </div>
+
+        {/* Link to Services below gallery with bigger gap */}
+        <div className="link-to-services-container">
+          <Link to="/services">
+            <img src={linkToServices} alt="Go to Services" />
+          </Link>
         </div>
       </div>
     </section>
   );
 }
+
