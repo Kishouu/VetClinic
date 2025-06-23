@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import '../components/UI/Appointment.css';
+import appointmentImg from '../assets/appointmentsimg.png';
+import AppointmentForm from '../components/AppointmentForm';
 
 const Appointment = () => {
   const [petName, setPetName] = useState('');
@@ -14,7 +17,6 @@ const Appointment = () => {
   const [isError, setIsError] = useState(false);
   const [loadingDoctors, setLoadingDoctors] = useState(false);
 
-  // Fetch user's pets on component mount
   useEffect(() => {
     const fetchPets = async () => {
       const token = localStorage.getItem('token');
@@ -27,11 +29,9 @@ const Appointment = () => {
         console.error('Error fetching pets:', err);
       }
     };
-
     fetchPets();
   }, []);
 
-  // Fetch services on component mount
   useEffect(() => {
     const fetchServices = async () => {
       const token = localStorage.getItem('token');
@@ -44,16 +44,13 @@ const Appointment = () => {
         console.error('Error fetching services:', err);
       }
     };
-
     fetchServices();
   }, []);
 
-  // Fetch doctors when serviceId changes
   useEffect(() => {
     const fetchDoctors = async () => {
       if (!serviceId) return;
 
-      console.log('Selected serviceId:', serviceId);
       setLoadingDoctors(true);
       const token = localStorage.getItem('token');
 
@@ -64,8 +61,6 @@ const Appointment = () => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-
-        console.log('Doctors fetched:', res.data);
 
         const doctorList = Array.isArray(res.data)
           ? res.data
@@ -91,17 +86,14 @@ const Appointment = () => {
     setMessage('');
     setIsError(false);
     const token = localStorage.getItem('token');
-
     const utcDate = new Date(date).toISOString();
 
     const payload = {
-      petName, // If needed, change to `petId: Number(petName)` if backend expects pet ID
+      petName,
       date: utcDate,
       doctorId: Number(doctorId),
       serviceId: Number(serviceId),
     };
-
-    console.log('Submitting payload:', payload);
 
     try {
       const res = await axios.post('http://localhost:3001/api/appointment', payload, {
@@ -118,7 +110,6 @@ const Appointment = () => {
       setDoctors([]);
     } catch (err) {
       console.error('Appointment error:', err);
-      console.log('Full Axios Error:', JSON.stringify(err, null, 2));
       setMessage(err.response?.data?.error || 'Appointment failed');
       setIsError(true);
     }
@@ -126,85 +117,39 @@ const Appointment = () => {
 
   return (
     <>
-    <Helmet>
-      <title>Book An Appointment </title>
-      <body className="light-page" />
-    </Helmet>
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Book Appointment</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Helmet>
+        <title>Book An Appointment</title>
+        <body className="dark-page" />
+      </Helmet>
 
-        {/* Pet Dropdown */}
-        <select
-          value={petName}
-          onChange={(e) => setPetName(e.target.value)}
-          className="border p-2 rounded"
-          required
-        >
-          <option value="">Select Pet</option>
-          {pets.map((pet) => (
-            <option key={pet.id} value={pet.name}>
-              {pet.name}
-            </option>
-          ))}
-        </select>
+      <div className="appointment-container">
+        <div className="appointment-image">
+          <img src={appointmentImg} alt="Appointment illustration" />
+        </div>
 
-        <input
-          type="datetime-local"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="border p-2 rounded"
-          required
-        />
-
-        <select
-          value={serviceId}
-          onChange={(e) => setServiceId(e.target.value)}
-          className="border p-2 rounded"
-          required
-        >
-          <option value="">Select Service</option>
-          {services.map((service) => (
-            <option key={service.id} value={service.id}>
-              {service.name}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={doctorId}
-          onChange={(e) => setDoctorId(e.target.value)}
-          className="border p-2 rounded"
-          required
-          disabled={!serviceId || loadingDoctors}
-        >
-          <option value="">
-            {loadingDoctors ? 'Loading doctors...' : 'Select Doctor'}
-          </option>
-          {doctors.map((doc) => (
-            <option key={doc.id} value={doc.id}>
-              {doc.login}
-            </option>
-          ))}
-        </select>
-
-        {!loadingDoctors && serviceId && doctors.length === 0 && (
-          <p className="text-sm text-red-500">No doctors available for this service.</p>
-        )}
-
-        <button type="submit" className="bg-purple-600 text-white p-2 rounded">
-          Book Appointment
-        </button>
-      </form>
-
-      {message && (
-        <p className={`mt-4 text-center text-sm ${isError ? 'text-red-500' : 'text-green-600'}`}>
-          {message}
-        </p>
-      )}
-    </div>
+        <div className="appointment-form-container">
+          <AppointmentForm
+            petName={petName}
+            setPetName={setPetName}
+            pets={pets}
+            date={date}
+            setDate={setDate}
+            services={services}
+            serviceId={serviceId}
+            setServiceId={setServiceId}
+            doctors={doctors}
+            doctorId={doctorId}
+            setDoctorId={setDoctorId}
+            handleSubmit={handleSubmit}
+            loadingDoctors={loadingDoctors}
+            message={message}
+            isError={isError}
+          />
+        </div>
+      </div>
     </>
   );
 };
 
 export default Appointment;
+

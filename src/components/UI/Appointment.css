@@ -1,0 +1,49 @@
+/* Appointment.css */
+
+.appointment-container {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  background-color: #fdfdfb;
+}
+
+.appointment-image {
+  flex: 1;
+  min-width: 300px;
+  background-color: #fdfdfb; /* Matches page background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.appointment-image img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.appointment-form-container {
+  flex: 1;
+  min-width: 300px;
+  padding: 2rem;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .appointment-container {
+    flex-direction: column;
+  }
+
+  .appointment-form-container {
+    padding: 1.5rem;
+  }
+}
+
+

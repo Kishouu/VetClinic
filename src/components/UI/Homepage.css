@@ -41,8 +41,8 @@
   transition: background 0.3s ease;
 
   position: absolute;
-  top: calc(5% + 160px);    /* 100px lower */
-  right: calc(5% - 15px);   /* 10px further right */
+  top: calc(5% + 160px);    
+  right: calc(5% - 15px);  
   z-index: 2;
   cursor: pointer;
 }
