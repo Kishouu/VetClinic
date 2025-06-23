@@ -8,6 +8,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   const isAboutPage = location.pathname === '/about';
+  const isLoginPage = location.pathname === '/signin';
   const [menuOpen, setMenuOpen] = useState(false);
 
   const contactBgStyle = {
@@ -33,12 +34,24 @@ export default function Navbar({ isLoggedIn, onLogout }) {
     padding: '1rem 2rem',
     position: 'relative',
   };
+  const loginBgStyle = {
+  backgroundColor: '#2A2A2A', // semi-transparent background
+  color: 'transparent',
+  minHeight: '1px',
+  width: '100%',
+  padding: '1rem 2rem',
+  position: 'relative',
+};
+
 
   const navbarBgStyle = isContactPage
-    ? contactBgStyle
-    : isAboutPage
-    ? aboutBgStyle
-    : {};
+  ? contactBgStyle
+  : isAboutPage
+  ? aboutBgStyle
+  : isLoginPage
+  ? loginBgStyle
+  : {};
+
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
@@ -55,7 +68,7 @@ export default function Navbar({ isLoggedIn, onLogout }) {
       <div className="navbar-top">
         <div className="navbar-logo-position">
           <Link to="/" className="navbar-title" onClick={closeMenu}>
-            DrPaw
+            Dr.Paw
           </Link>
         </div>
 
