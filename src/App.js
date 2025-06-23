@@ -10,6 +10,7 @@ import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Navbar from './components/Navbar';
 import { Footer } from './components/Footer';
+import Services from './pages/Services';
 import './style.css';
 
 export default function App() {
@@ -46,9 +47,9 @@ export default function App() {
           path="/appointment"
           element={isLoggedIn ? <Appointment /> : <Navigate to="/signin" replace />}
         />
+		<Route path='/services' element={< Services /> } />
       </Routes>
-
-      <Footer />
+	<Footer />
     </Router>
   );
 }

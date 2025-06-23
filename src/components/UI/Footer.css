@@ -183,7 +183,7 @@
     display: none;
   }
 }
-/* Home page footer custom styles */
+/* ===== Footer Styles for Light Mode ===== */
 body.light-page .footer {
   background-color: #F9FBF3 !important;
   color: #2A2A2A !important;
@@ -192,9 +192,11 @@ body.light-page .footer {
 body.light-page .footer a {
   color: #2A2A2A !important;
 }
-body.light-page .footer .line{
+
+body.light-page .footer .line {
   background-color: #2A2A2A !important;
 }
+
 body.light-page .footer .horizontal-border {
   border-top: 1px solid #2A2A2A;
 }
@@ -203,6 +205,7 @@ body.light-page .footer .vertical-border {
   border-left: 1px solid #2A2A2A;
 }
 
+/* ===== Footer Styles for Dark Mode ===== */
 body.dark-page .footer {
   background-color: #2A2A2A !important;
   color: #F9FBF3 !important;
@@ -211,11 +214,16 @@ body.dark-page .footer {
 body.dark-page .footer a {
   color: #F9FBF3 !important;
 }
-body.dark-page .footer .line{
+
+body.dark-page .footer .line {
   background-color: #F9FBF3 !important;
 }
+
 body.dark-page .footer .horizontal-border {
   border-top: 1px solid #F9FBF3;
 }
 
+body.dark-page .footer .vertical-border {
+  border-left: 1px solid #F9FBF3;
+}
 

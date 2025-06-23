@@ -1,0 +1,143 @@
+/* Wrapper to center all page content */
+.services-page-container {
+  max-width: 1100px; /* fixed max width */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;  /* some side padding */
+  box-sizing: border-box;
+}
+
+/* Service card container flex */
+.service-card-with-text {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Stack vertically and center on smaller screens */
+@media (max-width: 900px) {
+  .service-card-with-text {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .service-description {
+    max-width: 100%;
+  }
+}
+
+/* Text container */
+.service-description {
+  max-width: 500px;
+  font-family: 'DM Sans', sans-serif;
+  color: #2a2a2a;
+}
+
+.service-description p {
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.service-description ul {
+  list-style: disc;
+  margin-left: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: #555;
+}
+
+/* Book button styles */
+.book-button-custom {
+  background-color: #2a2a2a;
+  color: #f9fbf3;
+  font-weight: 600;
+  width: 456px;
+  height: 44px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Make book button full width and smaller font on mobile */
+@media (max-width: 600px) {
+  .book-button-custom {
+    width: 100%;
+    max-width: 320px;
+    font-size: 1rem;
+  }
+}
+
+/* Want More section wrapper */
+.want-more-section {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto 4rem;
+  padding: 0 1rem; /* prevent overflow */
+  box-sizing: border-box;
+}
+
+/* Want More image */
+.want-more-section img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* About button on top right */
+.about-button {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background-color: #f9fbf3;
+  color: #2a2a2a;
+  font-weight: 600;
+  width: 152px;
+  height: 44px;
+  font-size: 1.1rem;
+  border-radius: 0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+/* About button smaller on phones */
+@media (max-width: 600px) {
+  .about-button {
+    width: 120px;
+    height: 36px;
+    font-size: 1rem;
+    top: 8px;
+    right: 8px;
+  }
+}
+
+/* Extra small phones fix (under 480px) */
+@media (max-width: 480px) {
+  .service-description p,
+  .service-description ul {
+    font-size: 1rem;
+  }
+
+  .book-button-custom {
+    max-width: 100%;
+  }
+
+  .service-card-with-text {
+    gap: 1rem;
+  }
+}
+
