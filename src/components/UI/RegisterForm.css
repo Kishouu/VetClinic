@@ -1,0 +1,68 @@
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.register-title {
+  text-align: center;
+  font-size: 50px;
+  color: #ffffff;
+  margin-bottom: 35px;
+  font-weight: 700; /* changed from 5000 to a valid value */
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-error {
+  color: rgb(255, 0, 0);
+  text-align: center;
+  font-size: 14px; /* added value since it was missing */
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-success {
+  color: rgb(0, 200, 80);
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.register-input {
+  padding: 12px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin-left: 130px;
+  margin-right: 130px;
+}
+
+.register-input:focus {
+  border-color: #000000;
+}
+
+.register-button {
+  background-color: #000000;
+  color: white;
+  padding: 12px;
+  font-size: 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  margin-left: 130px;
+  margin-right: 130px;
+  margin-bottom: 20px;
+}
+
+.register-button:hover {
+  background-color: #494949;
+}
