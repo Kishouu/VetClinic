@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './UI/RegisterForm.css';
 
 export default function RegisterForm({ onLogin }) {
   const [login, setLogin] = useState('');
@@ -44,12 +45,14 @@ export default function RegisterForm({ onLogin }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
+    <form className="register-form" onSubmit={handleSubmit}>
+      <h2 className="register-title">Register</h2>
+
+      {error && <p className="register-error">{error}</p>}
+      {success && <p className="register-success">{success}</p>}
 
       <input
+        className="register-input"
         type="text"
         placeholder="Login"
         value={login}
@@ -58,6 +61,7 @@ export default function RegisterForm({ onLogin }) {
         required
       />
       <input
+        className="register-input"
         type="password"
         placeholder="Password"
         value={password}
@@ -66,6 +70,7 @@ export default function RegisterForm({ onLogin }) {
         required
       />
       <input
+        className="register-input"
         type="password"
         placeholder="Confirm Password"
         value={confirmPassword}
@@ -74,10 +79,9 @@ export default function RegisterForm({ onLogin }) {
         required
       />
 
-      <button type="submit" disabled={loading}>
+      <button className="register-button" type="submit" disabled={loading}>
         {loading ? 'Creating Account...' : 'Create Account'}
       </button>
     </form>
   );
 }
-

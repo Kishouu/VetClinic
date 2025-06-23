@@ -1,0 +1,50 @@
+/* SignInPage.css */
+
+/* Applies only to the sign-in page wrapper */
+.signin-background {
+  height: 100vh;
+  width: 100%;
+  background: url('../../assets/Login-Register-bg.png') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 905px;    
+  height: 561px;   
+}
+
+.signin-card {
+  width: 100%;
+  max-width: 943px;
+  padding: 32px;
+  background-color: rgba(135, 135, 135, 0.5);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+.signin-toggle-text {
+  margin-top: 16px;
+  text-align: center; /* <-- this is key */
+}
+.toggle-button {
+
+  background: none;
+  color: #ffffff;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.toggle-button:hover {
+  text-decoration: underline;
+}
+

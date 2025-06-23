@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './UI/LoginForm.css';
 
 export default function LoginForm({ onLogin }) {
   const [login, setLogin] = useState('');
@@ -34,10 +35,11 @@ export default function LoginForm({ onLogin }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <form className="login-form" onSubmit={handleSubmit}>
+      <h2 className="login-title">Login</h2>
+      {error && <p className="login-error">{error}</p>}
       <input
+        className="login-input"
         type="text"
         placeholder="Login"
         value={login}
@@ -46,6 +48,7 @@ export default function LoginForm({ onLogin }) {
         disabled={loading}
       />
       <input
+        className="login-input"
         type="password"
         placeholder="Password"
         value={password}
@@ -53,10 +56,9 @@ export default function LoginForm({ onLogin }) {
         required
         disabled={loading}
       />
-      <button type="submit" disabled={loading}>
+      <button className="login-button" type="submit" disabled={loading}>
         {loading ? 'Logging in...' : 'Log In'}
       </button>
     </form>
   );
 }
-
