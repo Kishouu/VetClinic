@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import '../components/UI/Appointment.css';
 import appointmentImg from '../assets/appointmentsimg.png';
-import AppointmentForm from '../components/AppointmentForm';
 
 const Appointment = () => {
   const [petName, setPetName] = useState('');
@@ -114,92 +113,101 @@ const Appointment = () => {
       setIsError(true);
     }
   };
+return (
+  <>
+    <Helmet>
+      <title>Book An Appointment</title>
+      <body className="dark-page" />
+    </Helmet>
 
-  return (
-    <>
-      <Helmet>
-        <title>Book An Appointment</title>
-        <body className="dark-page" />
-      </Helmet>
+    <div className="appointment-container">
+      <div className="appointment-image">
+        <img src={appointmentImg} alt="Appointment illustration" />
+      </div>
 
-      <div className="appointment-container">
-        <div className="appointment-image">
-          <img src={appointmentImg} alt="Appointment illustration" />
-        </div>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="appointment-form">
+        {message && (
+          <p className={`mt-4 text-center text-sm ${isError ? 'error-msg' : 'success-msg'}`}>
+            {message}
+          </p>
+        )}
 
         {/* Pet Dropdown */}
-        <select
-          value={petName}
-          onChange={(e) => setPetName(e.target.value)}
-          className="border p-2 rounded"
-          required
-        >
-          <option value="">Select Pet</option>
-          {pets.map((pet) => (
-            <option key={pet.id} value={pet.name}>
-              {pet.name}
-            </option>
-          ))}
-        </select>
+        <div className="appointment-input-wrapper">
+          <select
+            value={petName}
+            onChange={(e) => setPetName(e.target.value)}
+            className="appointment-input"
+            required
+          >
+            <option value="">Select Pet</option>
+            {pets.map((pet) => (
+              <option key={pet.id} value={pet.name}>
+                {pet.name}
+              </option>
+            ))}
+          </select>
+          <i className="bi bi-chevron-down arrow-icon"></i>
+        </div>
 
         <input
           type="datetime-local"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="border p-2 rounded"
+          className="appointment-input"
           required
         />
 
-        <select
-          value={serviceId}
-          onChange={(e) => setServiceId(e.target.value)}
-          className="border p-2 rounded"
-          required
-        >
-          <option value="">Select Service</option>
-          {services.map((service) => (
-            <option key={service.id} value={service.id}>
-              {service.name}
-            </option>
-          ))}
-        </select>
+        {/* Service Dropdown */}
+        <div className="appointment-input-wrapper">
+          <select
+            value={serviceId}
+            onChange={(e) => setServiceId(e.target.value)}
+            className="appointment-input"
+            required
+          >
+            <option value="">Select Service</option>
+            {services.map((service) => (
+              <option key={service.id} value={service.id}>
+                {service.name}
+              </option>
+            ))}
+          </select>
+          <i className="bi bi-chevron-down arrow-icon"></i>
+        </div>
 
-        <select
-          value={doctorId}
-          onChange={(e) => setDoctorId(e.target.value)}
-          className="border p-2 rounded"
-          required
-          disabled={!serviceId || loadingDoctors}
-        >
-          <option value="">
-            {loadingDoctors ? 'Loading doctors...' : 'Select Doctor'}
-          </option>
-          {doctors.map((doc) => (
-            <option key={doc.id} value={doc.id}>
-              {doc.login}
+        {/* Doctor Dropdown */}
+        <div className="appointment-input-wrapper">
+          <select
+            value={doctorId}
+            onChange={(e) => setDoctorId(e.target.value)}
+            className="appointment-input"
+            required
+            disabled={!serviceId || loadingDoctors}
+          >
+            <option value="">
+              {loadingDoctors ? 'Loading doctors...' : 'Select Doctor'}
             </option>
-          ))}
-        </select>
+            {doctors.map((doc) => (
+              <option key={doc.id} value={doc.id}>
+                {doc.login}
+              </option>
+            ))}
+          </select>
+          <i className="bi bi-chevron-down arrow-icon"></i>
+        </div>
 
         {!loadingDoctors && serviceId && doctors.length === 0 && (
-          <p className="text-sm text-red-500">No doctors available for this service.</p>
+          <p className="error-msg">No doctors available for this service.</p>
         )}
 
-        <button type="submit" className="bg-purple-600 text-white p-2 rounded">
+        <button type="submit" className="appointment-button">
           Book Appointment
         </button>
       </form>
-        {message && (
-        <p className={`mt-4 text-center text-sm ${isError ? 'text-red-500' : 'text-green-600'}`}>
-          {message}
-        </p>
-      )}
-      </div>
-    </>
-  );
-};
-
+    </div>
+  </>
+);
+}
 export default Appointment;
 

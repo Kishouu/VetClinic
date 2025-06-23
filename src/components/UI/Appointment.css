@@ -1,5 +1,3 @@
-/* Appointment.css */
-
 .appointment-container {
   display: flex;
   flex-wrap: wrap;
@@ -10,7 +8,7 @@
 .appointment-image {
   flex: 1;
   min-width: 300px;
-  background-color: #fdfdfb; /* Matches page background */
+  background-color: #fdfdfb;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +28,7 @@
   flex: 1;
   min-width: 300px;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: #fdfdfd;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -46,9 +44,7 @@
   }
 }
 
-
 .appointment-form {
-  background-color: #d9d9d9;
   padding: 2rem;
   max-width: 500px;
   margin: auto;
@@ -56,32 +52,87 @@
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; 
 }
 
-.appointment-input,
-.appointment-button {
-  width: 441px;
+/* Wrapper for select inputs */
+.appointment-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 441px; /* match input width */
+}
+
+/* Remove native arrow for selects */
+.appointment-input {
+  width: 100%;
   height: 66px;
   border-radius: 25px;
   border: none;
   padding: 0 1rem;
   font-size: 16px;
-  color: #2a2a2a;
-  background-color: #f9fbf3;
+  font-weight: bold;
+  color: #f9fbf3;
+  background-color: #2a2a2a;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: center;
 }
 
-.appointment-button {
-  background-color: #2a2a2a;
+/* Remove IE default arrow */
+.appointment-input::-ms-expand {
+  display: none;
+}
+
+/* Bootstrap icon arrow for selects */
+.arrow-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
   color: #f9fbf3;
+  pointer-events: none;
+  user-select: none;
   font-weight: bold;
+}
+
+/* Button styles */
+.appointment-button {
+  width: 441px;
+  height: 66px;
+  border-radius: 25px;
+  border: none;
+  padding: 0 1.5rem;
+  font-size: 16px;
+  font-weight: bold;
+  color: #f9fbf3;
+  background-color: #2a2a2a;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Ensure no arrows on buttons */
+.appointment-button::after {
+  content: none !important;
+}
+
+/* Last button "Book Appointment" styling */
+.appointment-button:last-of-type {
+  background-color: #ADA99D;
+  color: #2a2a2a;
+  padding-right: 1rem;
 }
 
 .appointment-button:hover {
   opacity: 0.9;
 }
 
+/* Error and success messages */
 .error-msg {
   color: red;
   font-size: 14px;
@@ -90,5 +141,62 @@
 .success-msg {
   color: green;
   font-size: 14px;
+}
+
+/* Target the date input specifically */
+.appointment-input[type="datetime-local"] {
+  height: 66px;
+  width: 385px;
+  border-radius: 25px;
+  border: none;
+  padding: 0 1rem 0 40px; /* left padding for calendar icon */
+  font-size: 16px;
+  font-weight: bold;
+  color: #f9fbf3;
+  background-color: #2a2a2a;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-align: left; /* do not center text */
+  line-height: normal;
+  position: relative;
+}
+
+/* Hide native calendar icon but keep clickable */
+.appointment-input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Custom calendar icon on left using unicode */
+.appointment-input-wrapper:first-of-type::before {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #f9fbf3;
+  pointer-events: none;
+  user-select: none;
+  font-weight: bold;
+  z-index: 1;
+}
+
+/* Remove inner shadow / clear button in some browsers */
+.appointment-input[type="datetime-local"]::-webkit-inner-spin-button,
+.appointment-input[type="datetime-local"]::-webkit-clear-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+/* Firefox fix for date picker icon color */
+.appointment-input[type="datetime-local"]::-moz-calendar-picker-indicator {
+  filter: invert(1);
 }
 
