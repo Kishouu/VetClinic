@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ import Appointment from './pages/Appointment';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Navbar from './components/Navbar';
-import { Footer } from './components/Footer';  // <-- named import here
+import { Footer } from './components/Footer';
 import './style.css';
 
 export default function App() {
@@ -47,7 +48,7 @@ export default function App() {
         />
       </Routes>
 
-      <Footer />  {/* Add footer here, outside Routes */}
+      <Footer />
     </Router>
   );
 }
