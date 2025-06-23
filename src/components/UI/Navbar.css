@@ -2,31 +2,40 @@
 .navbar {
   display: flex;
   flex-direction: column;
-  padding: 1rem 2rem;
   position: relative;
   z-index: 10;
   color: white;
   font-family: 'DM Sans', sans-serif;
-  background-color: #000; /* default black bg, can be overridden per page */
+  background-color: #000;
+  min-height: 220px;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
 }
 
-/* Top bar: DrPaw + Nav */
+/* Top bar layout */
 .navbar-top {
   display: flex;
-  justify-content: space-between;
+
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 60px;
-  flex-wrap: wrap;
+  padding: 0 2rem;
+  position: relative;
 }
 
-/* DrPaw container */
+/* Logo on the left */
 .navbar-logo-position {
+  position: absolute;
+  left: 2rem;
   display: flex;
   align-items: center;
 }
 
-/* DrPaw link */
+/* Logo style */
 .navbar-title {
   font-family: 'Bonheur Royale', cursive;
   font-size: 2.5rem;
@@ -38,20 +47,22 @@
   white-space: nowrap;
 }
 
-/* Nav links container */
+/* Nav links centered (desktop) */
 .nav-links {
   display: flex;
   gap: 1.5rem;
   list-style: none;
   margin: 0;
   padding: 0;
-  font-family: 'DM Sans', sans-serif;
   align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
 }
 
-/* Nav links style */
+/* Nav link + button styling */
 .nav-links li a,
-.nav-links li button {
+.nav-links li button,
+.navbar-logout button {
   text-decoration: none;
   color: white;
   background: none;
@@ -60,9 +71,18 @@
   font-weight: 600;
   font-size: 1.1rem;
   padding: 0.2rem 0;
+  font-family: 'DM Sans', sans-serif;
 }
 
-/* Burger menu button */
+/* Desktop logout position */
+.navbar-logout {
+  position: absolute;
+  right: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Burger menu base (hidden on desktop) */
 .burger-menu {
   display: none;
   flex-direction: column;
@@ -72,7 +92,6 @@
   height: 20px;
   cursor: pointer;
   z-index: 20;
-  margin-left: 1rem;
 }
 
 .burger-menu div {
@@ -82,62 +101,83 @@
   margin: 3px 0;
 }
 
-/* Breadcrumb + page title (Contact Us section) */
+
+/* Breadcrumb and title section */
 .navbar-info-position {
+  position: absolute;
+  left: 0;
+  top: 110px;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1rem 0 0 0;
-  color: white;
+  width: 100%;
 }
 
 .breadcrumb {
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 0.85rem;
+  color: white;
   margin-bottom: 0.5rem;
 }
 
 .page-title {
-  font-size: 2.5rem; /* Bigger title */
+  font-size: 3.7rem;
   font-weight: bold;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Responsive styles */
+/* MOBILE STYLES */
 @media (max-width: 768px) {
-  /* Show burger menu */
   .burger-menu {
     display: flex;
   }
 
-  /* Hide nav links by default */
   .nav-links {
     display: none;
     position: absolute;
     top: 60px;
     right: 1rem;
+    background: rgba(0, 0, 0, 0.95);
     flex-direction: column;
     background: rgba(0, 0, 0, 0.98); /* Darker background */
     padding: 1rem;
-    border-radius: 8px;
-    min-width: 160px;
-    align-items: flex-start;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+    border-radius: 6px;
+    display: none;
+    min-width: 150px;
+    z-index: 15;
   }
 
-  /* Show nav when active */
   .nav-links.active {
     display: flex;
   }
-}
 
-/* Optional: Adjust layout spacing on larger screens */
-@media (min-width: 769px) {
-  .navbar-top {
-    justify-content: space-between;
+  .nav-links li {
+    text-align: center;
+    margin-bottom: 0.6rem;
+  }
+
+  .nav-links li:last-child {
+    margin-bottom: 0;
+  }
+
+  .navbar-logout {
+    display: none; /* hide top-placed logout on mobile */
   }
 
   .navbar-info-position {
-    padding-top: 2rem;
+    position: static;
+    margin-left: 0;
+    padding: 1rem;
+    top: auto;
+  }
+
+  .page-title {
+    font-size: 2.2rem;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
   }
 }
-
