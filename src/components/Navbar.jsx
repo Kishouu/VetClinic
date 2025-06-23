@@ -3,12 +3,14 @@ import { Link, useLocation } from 'react-router-dom';
 import './UI/Navbar.css';
 import contactHeader from '../assets/ContactUsHeader.png';
 import aboutUsHeader from '../assets/AboutUsHeader.png';
+import homeHeader from '../assets/HomeHeader.png';
 
 export default function Navbar({ isLoggedIn, onLogout }) {
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   const isAboutPage = location.pathname === '/about';
   const isLoginPage = location.pathname === '/signin';
+  const isHomePage = location.pathname === '/';
   const [menuOpen, setMenuOpen] = useState(false);
 
   const contactBgStyle = {
@@ -41,7 +43,19 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   width: '100%',
   padding: '1rem 2rem',
   position: 'relative',
-};
+  };
+    const homeBgStyle = {
+    backgroundImage: `url(${homeHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '850px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+
 
 
   const navbarBgStyle = isContactPage
@@ -50,7 +64,9 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   ? aboutBgStyle
   : isLoginPage
   ? loginBgStyle
-  : {};
+  : isHomePage
+  ?homeBgStyle
+  :{};
 
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -163,6 +179,31 @@ export default function Navbar({ isLoggedIn, onLogout }) {
           </div>
           <div className="page-title">ABOUT US</div>
         </div>
+      )}
+      {isHomePage && (
+      <div className="home-navbar-info-position">
+        <p className="meow-woof">
+          MEOW. MEOW.
+          <br />
+          WOOF. WOOF.
+        </p>
+
+        <p className='home-nav-text'> We provide compassionate, high-quality veterinary care for dogs, cats, and <br/>
+        other small animals. Whether it is a routine checkup, vaccination, surgery, or<br/>
+         emergency care — our experienced team is here to support your pet’s well-<br/>
+         being every step of the way.<br/><br/>
+         Because to us, they’re not just pets — they’re family. </p>
+
+        <div className="home-nav-buttons">
+          <Link to="/appointment" className='home-head-book-but'>
+                  Book your visit
+          </Link>
+          <Link to="/about" className='home-head-about-but'>
+                  Learn more about our team
+          </Link>
+        </div>
+      </div>
+
       )}
     </nav>
   );
