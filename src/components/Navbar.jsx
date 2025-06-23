@@ -76,13 +76,18 @@ export default function Navbar({ isLoggedIn, onLogout }) {
 
         <ul id="primary-navigation" className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <li>
-            <Link to="/contact" onClick={closeMenu}>
-              CONTACT
+            <Link to="/about" onClick={closeMenu}>
+              ABOUT 
             </Link>
           </li>
           <li>
-            <Link to="/about" onClick={closeMenu}>
-              ABOUT 
+            <Link to="/services" onClick={closeMenu}>
+              SERVICES 
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" onClick={closeMenu}>
+              CONTACT
             </Link>
           </li>
           {!isLoggedIn ? (

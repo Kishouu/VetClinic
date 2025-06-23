@@ -53,13 +53,13 @@ export const Footer = () => {
 
                     <div className="container-2">
                       <div className="div-wrapper">
-                        <Link className="text-wrapper-3" to="/services">SERVICES</Link>
+                        <Link className="text-wrapper-3" to="/contact">CONTACT US</Link>
                       </div>
                     </div>
 
                     <div className="container-2">
                       <div className="div-wrapper">
-                        <Link className="text-wrapper-3" to="/news">NEWS</Link>
+                        <Link className="text-wrapper-3" to="/services">SERVICES</Link>
                       </div>
                     </div>
                   </div>
