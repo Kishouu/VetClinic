@@ -183,3 +183,20 @@
     display: none;
   }
 }
+/* Home page footer custom styles */
+body.home-page .footer {
+  background-color: #F9FBF3 !important;
+  color: #2A2A2A !important;
+}
+
+body.home-page .footer a {
+  color: #2A2A2A !important;
+}
+
+body.home-page .footer .vertical-border,
+body.home-page .footer .line,
+body.home-page .footer .horizontal-border {
+  border-color: #2A2A2A !important;
+  background-color: #2A2A2A !important;
+}
+

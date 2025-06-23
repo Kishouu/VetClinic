@@ -1,0 +1,173 @@
+.home-values-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.values-content {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.image-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto; /* center this container */
+}
+
+.values-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+
+}
+
+.book-button-black {
+  background-color: #2A2A2A;
+  color: #f9fbf3;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 456px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+
+  position: absolute;
+  top: calc(5% + 160px);    /* 100px lower */
+  right: calc(5% - 15px);   /* 10px further right */
+  z-index: 2;
+  cursor: pointer;
+}
+.book-button-black:hover {
+  background-color: #1e1e1e;
+}
+/* Section that wraps the image with dark background */
+.how-it-work-section {
+  display: flex;
+  justify-content: center;  /* center horizontally */
+  align-items: center;      /* center vertically if section has height */
+  padding: 4rem 2rem;
+  background-color: #2A2A2A; /* dark background only here */
+}
+
+/* Inner container to control image max size */
+.work-content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;  /* center image horizontally */
+  align-items: center;
+}
+
+/* Wrapper div to keep image layout clean */
+.work-wrapper {
+  position: relative;
+}
+
+/* The image styling */
+.how-it-work-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px; /* optional: soften corners */
+}
+/* === SERVICES BANNER SECTION === */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+.services-banner-section {
+  margin: 4rem 0;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.services-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.banner-left {
+  font-size: 1.2rem;
+  color: #2a2a2a;
+}
+
+.services-link {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2a2a2a;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.services-link:hover {
+  color: #1e1e1e;
+}
+.services-row {
+  display: flex;
+  justify-content: center; /* center them horizontally */
+  align-items: center;
+  gap: 2rem; /* space between images */
+  margin: 4rem 0; /* vertical spacing */
+}
+
+.service-image {
+  max-width: 100%;
+  width: 250px; /* or whatever size suits your layout */
+  height: auto;
+  border-radius: 12px; /* optional rounded corners */
+}
+.trust-section {
+  background-color: #2A2A2A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* remove padding */
+}
+
+.trust-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.trust-image {
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: 100%; /* responsive fallback */
+  border-radius: 0; /* optional: remove border radius if you want clean edges */
+}
+
+.book-button-smaller {
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  background-color: #f9fbf3;
+  color: #2a2a2a;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 195px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.book-button-smaller:hover {
+  background-color: #e7e9db;
+}
+body.home-page footer {
+  background-color: #f9fbf3;
+}
+
