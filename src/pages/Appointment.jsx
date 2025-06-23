@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const Appointment = () => {
   const [petName, setPetName] = useState('');
+  const [pets, setPets] = useState([]);
   const [date, setDate] = useState('');
   const [services, setServices] = useState([]);
   const [serviceId, setServiceId] = useState('');
@@ -11,6 +12,23 @@ const Appointment = () => {
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [loadingDoctors, setLoadingDoctors] = useState(false);
+
+  // Fetch user's pets on component mount
+  useEffect(() => {
+    const fetchPets = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await axios.get('http://localhost:3001/api/pets/user', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPets(res.data);
+      } catch (err) {
+        console.error('Error fetching pets:', err);
+      }
+    };
+
+    fetchPets();
+  }, []);
 
   // Fetch services on component mount
   useEffect(() => {
@@ -67,59 +85,63 @@ const Appointment = () => {
     fetchDoctors();
   }, [serviceId]);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setMessage('');
-  setIsError(false);
-  const token = localStorage.getItem('token');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage('');
+    setIsError(false);
+    const token = localStorage.getItem('token');
 
-  const utcDate = new Date(date).toISOString();
+    const utcDate = new Date(date).toISOString();
 
-  const payload = {
-    petName,
-    date: utcDate,
-    doctorId: Number(doctorId),
-    serviceId: Number(serviceId),
+    const payload = {
+      petName, // If needed, change to `petId: Number(petName)` if backend expects pet ID
+      date: utcDate,
+      doctorId: Number(doctorId),
+      serviceId: Number(serviceId),
+    };
+
+    console.log('Submitting payload:', payload);
+
+    try {
+      const res = await axios.post('http://localhost:3001/api/appointment', payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setMessage(res.data.message || 'Appointment booked successfully!');
+      setPetName('');
+      setDate('');
+      setServiceId('');
+      setDoctorId('');
+      setDoctors([]);
+    } catch (err) {
+      console.error('Appointment error:', err);
+      console.log('Full Axios Error:', JSON.stringify(err, null, 2));
+      setMessage(err.response?.data?.error || 'Appointment failed');
+      setIsError(true);
+    }
   };
-
-  console.log('Submitting payload:', payload);
-
-  try {
-    const res = await axios.post('http://localhost:3001/api/appointment', payload, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    setMessage(res.data.message || 'Appointment booked successfully!');
-    setPetName('');
-    setDate('');
-    setServiceId('');
-    setDoctorId('');
-    setDoctors([]);
-  } catch (err) {
-    console.error('Appointment error:', err);
-    console.log('Full Axios Error:', JSON.stringify(err, null, 2));
-    setMessage(err.response?.data?.error || 'Appointment failed');
-    setIsError(true);
-  }
-};
-
-
 
   return (
     <div className="p-4 max-w-md mx-auto">
       <h2 className="text-xl font-bold mb-4">Book Appointment</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
-        <input
-          type="text"
-          placeholder="Pet Name"
+        {/* Pet Dropdown */}
+        <select
           value={petName}
           onChange={(e) => setPetName(e.target.value)}
           className="border p-2 rounded"
           required
-        />
+        >
+          <option value="">Select Pet</option>
+          {pets.map((pet) => (
+            <option key={pet.id} value={pet.name}>
+              {pet.name}
+            </option>
+          ))}
+        </select>
 
         <input
           type="datetime-local"
