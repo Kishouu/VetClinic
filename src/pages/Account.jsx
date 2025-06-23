@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import CreatePetForm from '../components/CreatePetForm';
 
 export default function Account() {
   const [user, setUser] = useState(null);
@@ -117,6 +118,10 @@ export default function Account() {
             </table>
           </div>
         )}
+        <div>
+          <h1>Create a New Pet</h1>
+          <CreatePetForm />
+        </div>
       </section>
     </div>
     </>
