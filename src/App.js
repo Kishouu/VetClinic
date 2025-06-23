@@ -32,7 +32,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/contact" element={<ContactUs isLoggedIn={isLoggedIn} />} />
         <Route path="/about" element={<AboutUs />} />
         <Route
           path="/signin"
