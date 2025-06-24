@@ -57,7 +57,7 @@
   height: 508px;
   object-fit: cover;
   margin: 0 auto; /* center horizontally, remove top margin */
-  max-width: 100%;
+  max-width: auto;
   position: relative;
   top: 0;
   left: 0;

@@ -7,6 +7,7 @@ import serviceHeader from '../assets/ServicesHeader.png';
 import appointmentHeader from '../assets/AppointmentHeader.png';
 import accountHeader from '../assets/AccountHeader.png';
 import homeHeader from '../assets/HomeHeader.png';
+import dashboardHeader from '../assets/DashboardHeader.png';
 
 export default function Navbar({ isLoggedIn, onLogout }) {
   const location = useLocation();
@@ -16,11 +17,24 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   const isServicePage = location.pathname === '/services';
   const isAppointmentPage = location.pathname === '/appointment';
   const isAccountPage = location.pathname === '/account';
+  const isDashboardPage = location.pathname === '/dashboard';
   const isHomePage = location.pathname === '/';
   const [menuOpen, setMenuOpen] = useState(false);
 
   const contactBgStyle = {
     backgroundImage: `url(${contactHeader})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    color: 'white',
+    minHeight: '220px',
+    width: '100%',
+    padding: '1rem 2rem',
+    position: 'relative',
+  };
+
+  const dashboardBgStyle = {
+    backgroundImage: `url(${dashboardHeader})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -113,6 +127,8 @@ export default function Navbar({ isLoggedIn, onLogout }) {
   ? appointmentBgStyle
   : isAccountPage
   ? accountBgStyle
+  :isDashboardPage
+  ? dashboardBgStyle
   : isHomePage
   ?homeBgStyle
   :{};
@@ -215,6 +231,15 @@ export default function Navbar({ isLoggedIn, onLogout }) {
             | Contact Us
           </div>
           <div className="page-title">CONTACT US</div>
+        </div>
+      )}
+
+      {isDashboardPage && (
+        <div className="navbar-info-position">
+          <div className="breadcrumb">
+            Admin | Dashboard
+          </div>
+          <div className="page-title">DASHBOARD</div>
         </div>
       )}
 

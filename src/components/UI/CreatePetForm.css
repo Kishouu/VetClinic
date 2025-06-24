@@ -1,8 +1,8 @@
-body, form, input, button, label, p {
+body {
   font-family: 'DM Sans', sans-serif;
 }
 
-form {
+.pet-form-container {
   max-width: 480px;
   margin: 20px auto;
   padding: 16px 20px;
@@ -12,20 +12,20 @@ form {
   font-family: Arial, sans-serif;
 }
 
-form > div {
+.pet-form-group {
   margin-bottom: 16px;
   display: flex;
   flex-direction: column;
 }
 
-label {
+.pet-form-label {
   margin-bottom: 6px;
   font-weight: 600;
   font-size: 14px;
   color: #2a2a2a;
 }
 
-input[type="text"] {
+.pet-form-input {
   padding: 8px 10px;
   font-size: 16px;
   border: 1px solid #2a2a2a;
@@ -33,12 +33,12 @@ input[type="text"] {
   transition: border-color 0.3s ease;
 }
 
-input[type="text"]:focus {
+.pet-form-input:focus {
   border-color: #2a2a2a;
   outline: none;
 }
 
-button[type="submit"] {
+.pet-form-submit {
   width: 100%;
   padding: 10px 0;
   background-color: #2a2a2a;
@@ -51,32 +51,32 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
+.pet-form-submit:hover {
   background-color: #4D4D4D;
 }
 
-p {
+.pet-form-message {
   margin-top: 16px;
   font-size: 14px;
 }
 
-p[style*="red"] {
-  color: red;
+.pet-form-success {
+  color: green;
 }
 
-p[style*="green"] {
-  color: green;
+.pet-form-error {
+  color: red;
 }
 
 /* Responsive for smaller screens */
 @media (max-width: 480px) {
-  form {
+  .pet-form-container {
     padding: 12px 15px;
     margin: 10px;
   }
 
-  input[type="text"], button[type="submit"] {
+  .pet-form-input,
+  .pet-form-submit {
     font-size: 14px;
   }
 }
-

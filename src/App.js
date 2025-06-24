@@ -11,6 +11,7 @@ import AboutUs from './pages/AboutUs';
 import Navbar from './components/Navbar';
 import { Footer } from './components/Footer';
 import Services from './pages/Services';
+import Dashboard from './pages/Dashboard';
 import './style.css';
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs isLoggedIn={isLoggedIn} />} />
+        <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
         <Route path="/about" element={<AboutUs />} />
         <Route
           path="/signin"

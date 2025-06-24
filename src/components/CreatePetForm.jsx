@@ -40,39 +40,43 @@ const CreatePetForm = ({ onPetCreated }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Name:</label>
+    <form onSubmit={handleSubmit} className="pet-form-container">
+      <div className="pet-form-group">
+        <label className="pet-form-label">Name:</label>
         <input
+          className="pet-form-input"
           type="text"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         />
       </div>
-      <div>
-        <label>Species:</label>
+      <div className="pet-form-group">
+        <label className="pet-form-label">Species:</label>
         <input
+          className="pet-form-input"
           type="text"
           value={formData.species}
           onChange={(e) => setFormData({ ...formData, species: e.target.value })}
         />
       </div>
-      <div>
-        <label>Breed:</label>
+      <div className="pet-form-group">
+        <label className="pet-form-label">Breed:</label>
         <input
+          className="pet-form-input"
           type="text"
           value={formData.breed}
           onChange={(e) => setFormData({ ...formData, breed: e.target.value })}
         />
       </div>
-      <button type="submit">Create Pet</button>
+      <button type="submit" className="pet-form-submit">Create Pet</button>
 
       {message && (
-        <p style={{ color: isError ? 'red' : 'green' }}>{message}</p>
+        <p className={`pet-form-message ${isError ? 'pet-form-error' : 'pet-form-success'}`}>
+          {message}
+        </p>
       )}
     </form>
   );
 };
 
 export default CreatePetForm;
-
