@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+Veterinary Clinic Management System
+Project Overview
+    Goal
+        The objective of this project is to develop a complete system for managing 
+        appointments in a veterinary clinic. The system will facilitate efficient clinic 
+        operations for both patients (animals) and medical staff.
+        Scope
+The system will provide functionalities for:
+    • Patient (Animal) Management: Creating and editing patient records, storing 
+    medical history, and owner details.
+    • Appointment Scheduling: Allowing staff to book appointments, manage 
+    doctors' schedules, and send notifications.
+    • Medical Documentation: Enabling doctors to enter/edit medical notes, visit 
+    details, and prescribed treatments.
+    • User Authentication & Role Management: Implementing login, authentication, 
+    and role-based permissions.
+User Types
+    1. Doctors: Access patient records, enter/edit medical documentation, view 
+    schedules.
+    2. Receptionists: Book appointments, manage schedules, maintain patient 
+    records.
+    3. Administrators: Oversee system settings, manage users, and ensure data 
+    integrity.
+2. Group Role Assignments
+    Team Members and Roles
+        Name                            Role
+    Stepan Turani Project Manager / Backend Developer
+    Sviatoslav Diachuk Database Manager / Full Stack Developer
+    Volha Silmanovich UI/UX Designer / Tester
+3. System Structure
+Key Pages & User Journey
+    1. Home Page: Overview of services, login/signup option.
+    2. Login Page: Authentication for staff members.
+    3. Dashboard: Different views for doctors, receptionists, and admins.
+    4. Patient Records: Add/patient details, view history.
+    5. Appointment Booking: Schedule appointments.
+    6. Medical Documentation: Doctors input diagnosis, treatments.
+    7. Admin Panel: Manage users, roles, and system settings.
+4. Functionalities
+    • User Authentication: Secure login for staff.
+    • Patient Management: CRUD operations for patient data.
+    • Appointment System: Booking, modifying, canceling appointments.
+    • Medical Documentation: Secure storage of medical records.
+    • Role-Based Access: Permission control for different users.
+5. Responsibilities
+    • Project Manager: Coordinate tasks, track progress, oversee final presentation.
+    • UI/UX Designer: Design wireframes and user-friendly interfaces in Figma.
+    • Full Stack Developer: Implement UI and ensure responsiveness , Develop 
+    server-side logic, authentication, and integrations.
+    • Backend Developer: Develop server-side logic, authentication, and integrations.
+    • Database Manager: Maintain database structure, ensure security and backups.
+    • Tester: Perform testing, document features, and fix bugs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Instruction how to run:
+    1. git clone https://github.com/Kishouu/VetClinic.git 
+    2. run npm install
+    3. enter /server dir
+    4. run npm install
+    5. init prisma
+    6. run node prisma/seed.js
+    7. open 3 terminal
+        1. run node index.js in /server
+        2. run npx prisma studion in /server
+        3. run npm start in root
+    8.enter http://localhost:3000/ in your browser   
