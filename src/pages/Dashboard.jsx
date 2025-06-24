@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import '../components/UI/Dashboard.css';
 
 export default function Dashboard() {
   const [appointments, setAppointments] = useState([]);
@@ -8,7 +9,6 @@ export default function Dashboard() {
   const [error, setError] = useState('');
   const [editingApptId, setEditingApptId] = useState(null);
   const [editFormData, setEditFormData] = useState({ date: '', notes: '' });
-
   const [editingPetId, setEditingPetId] = useState(null);
   const [editPetData, setEditPetData] = useState({ name: '', species: '', breed: '' });
 
@@ -99,200 +99,139 @@ export default function Dashboard() {
   };
 
   return (
-  <>
-    <Helmet>
-      <title>Dashboard</title>
-      <body className="dark-page" />
-    </Helmet>
-    <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
+    <>
+      <Helmet>
+        <title>Dashboard</title>
+        <body className="dark-page" />
+      </Helmet>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="max-w-5xl">
+        {error && <p>{error}</p>}
 
-      {/* Appointments Table */}
-      <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-3">All Appointments</h2>
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full border border-gray-300">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-4 py-2 border">Date</th>
-                <th className="px-4 py-2 border">Pet Name</th>
-                <th className="px-4 py-2 border">Doctor Login</th>
-                <th className="px-4 py-2 border">Service Name</th>
-                <th className="px-4 py-2 border">Notes</th>
-                <th className="px-4 py-2 border">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {appointments.map((appt) => (
-                <tr key={appt.id} className="text-center">
-                  <td className="px-4 py-2 border">
-                    {editingApptId === appt.id ? (
-                      <input
-                        type="datetime-local"
-                        name="date"
-                        value={editFormData.date}
-                        onChange={handleEditChange}
-                        className="border p-1"
-                      />
-                    ) : (
-                      new Date(appt.date).toLocaleString()
-                    )}
-                  </td>
-                  <td className="px-4 py-2 border">{appt.pet?.name || 'N/A'}</td>
-                  <td className="px-4 py-2 border">{appt.doctor?.login || 'N/A'}</td>
-                  <td className="px-4 py-2 border">{appt.service?.name || 'N/A'}</td>
-                  <td className="px-4 py-2 border">
-                    {editingApptId === appt.id ? (
-                      <input
-                        type="text"
-                        name="notes"
-                        value={editFormData.notes}
-                        onChange={handleEditChange}
-                        className="border p-1 w-full"
-                      />
-                    ) : (
-                      appt.notes || '—'
-                    )}
-                  </td>
-                  <td className="px-4 py-2 border">
-                    {editingApptId === appt.id ? (
-                      <>
-                        <button
-                          className="text-green-600 hover:underline mr-2"
-                          onClick={() => handleUpdateAppointment(appt.id)}
-                        >
-                          Save
-                        </button>
-                        <button
-                          className="text-gray-600 hover:underline"
-                          onClick={() => setEditingApptId(null)}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          className="text-blue-600 hover:underline mr-2"
-                          onClick={() => startEditingAppointment(appt)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-red-600 hover:underline"
-                          onClick={() => handleDeleteAppointment(appt.id)}
-                        >
-                          Delete
-                        </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Appointments */}
+        <h2 className="section-title1">APPOINTMENTS</h2>
+        <div className="table-like1">
+          <div className="table-header1">
+            <div className="table-cell1">Date</div>
+            <div className="table-cell1">Pet</div>
+            <div className="table-cell1">Doctor</div>
+            <div className="table-cell1">Service</div>
+            <div className="table-cell1">Notes</div>
+            <div className="table-cell actions-cell"></div>
+          </div>
+          {appointments.map((appt) => (
+            <div className="table-row1" key={appt.id}>
+              <div className="table-cell1">
+                {editingApptId === appt.id ? (
+                  <input
+                    type="datetime-local"
+                    name="date"
+                    value={editFormData.date}
+                    onChange={handleEditChange}
+                  />
+                ) : (
+                  new Date(appt.date).toLocaleString()
+                )}
+              </div>
+              <div className="table-cell1">{appt.pet?.name || 'N/A'}</div>
+              <div className="table-cell1">{appt.doctor?.login || 'N/A'}</div>
+              <div className="table-cell1">{appt.service?.name || 'N/A'}</div>
+              <div className="table-cell1">
+                {editingApptId === appt.id ? (
+                  <input
+                    type="text"
+                    name="notes"
+                    value={editFormData.notes}
+                    onChange={handleEditChange}
+                  />
+                ) : (
+                  appt.notes || '—'
+                )}
+              </div>
+              <div className="table-cell actions-cell">
+                {editingApptId === appt.id ? (
+                  <>
+                    <button className="change-btn" onClick={() => handleUpdateAppointment(appt.id)}>Save</button>
+                    <button className="change-btn" onClick={() => setEditingApptId(null)}>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    <button className="change-btn" onClick={() => startEditingAppointment(appt)}>Edit</button>
+                    <button className="change-btn" onClick={() => handleDeleteAppointment(appt.id)}>Delete</button>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
 
-      {/* Pets Table */}
-      <section>
-        <h2 className="text-2xl font-semibold mb-3">All Pets</h2>
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full border border-gray-300">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-4 py-2 border">Name</th>
-                <th className="px-4 py-2 border">Species</th>
-                <th className="px-4 py-2 border">Breed</th>
-                <th className="px-4 py-2 border">User Name</th>
-                <th className="px-4 py-2 border">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pets.map((pet) => (
-                <tr key={pet.id} className="text-center">
-                  <td className="px-4 py-2 border">
-                    {editingPetId === pet.id ? (
-                      <input
-                        type="text"
-                        name="name"
-                        value={editPetData.name}
-                        onChange={handlePetEditChange}
-                        className="border p-1 w-full"
-                      />
-                    ) : (
-                      pet.name
-                    )}
-                  </td>
-                  <td className="px-4 py-2 border">
-                    {editingPetId === pet.id ? (
-                      <input
-                        type="text"
-                        name="species"
-                        value={editPetData.species}
-                        onChange={handlePetEditChange}
-                        className="border p-1 w-full"
-                      />
-                    ) : (
-                      pet.species
-                    )}
-                  </td>
-                  <td className="px-4 py-2 border">
-                    {editingPetId === pet.id ? (
-                      <input
-                        type="text"
-                        name="breed"
-                        value={editPetData.breed}
-                        onChange={handlePetEditChange}
-                        className="border p-1 w-full"
-                      />
-                    ) : (
-                      pet.breed || 'N/A'
-                    )}
-                  </td>
-                  <td className="px-4 py-2 border">{pet.user?.login || 'N/A'}</td>
-                  <td className="px-4 py-2 border">
-                    {editingPetId === pet.id ? (
-                      <>
-                        <button
-                          className="text-green-600 hover:underline mr-2"
-                          onClick={() => handleUpdatePet(pet.id)}
-                        >
-                          Save
-                        </button>
-                        <button
-                          className="text-gray-600 hover:underline"
-                          onClick={() => setEditingPetId(null)}
-                        >
-                          Cancel
-                        </button>
-                      </>
-                    ) : (
-                      <>
-                        <button
-                          className="text-blue-600 hover:underline mr-2"
-                          onClick={() => startEditingPet(pet)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="text-red-600 hover:underline"
-                          onClick={() => handleDeletePet(pet.id)}
-                        >
-                          Delete
-                        </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Pets */}
+        <h2 className="section-title mt-5">PETS</h2>
+        <div className="table-like1">
+          <div className="table-header1">
+            <div className="table-cell1">Name</div>
+            <div className="table-cell1">Species</div>
+            <div className="table-cell1">Breed</div>
+            <div className="table-cell1">User</div>
+            <div className="table-cell actions-cell"></div>
+          </div>
+          {pets.map((pet) => (
+            <div className="table-row1" key={pet.id}>
+              <div className="table-cell1">
+                {editingPetId === pet.id ? (
+                  <input
+                    type="text"
+                    name="name"
+                    value={editPetData.name}
+                    onChange={handlePetEditChange}
+                  />
+                ) : (
+                  pet.name
+                )}
+              </div>
+              <div className="table-cell1">
+                {editingPetId === pet.id ? (
+                  <input
+                    type="text"
+                    name="species"
+                    value={editPetData.species}
+                    onChange={handlePetEditChange}
+                  />
+                ) : (
+                  pet.species
+                )}
+              </div>
+              <div className="table-cell1">
+                {editingPetId === pet.id ? (
+                  <input
+                    type="text"
+                    name="breed"
+                    value={editPetData.breed}
+                    onChange={handlePetEditChange}
+                  />
+                ) : (
+                  pet.breed || 'N/A'
+                )}
+              </div>
+              <div className="table-cell1">{pet.user?.login || 'N/A'}</div>
+              <div className="table-cell actions-cell">
+                {editingPetId === pet.id ? (
+                  <>
+                    <button className="change-btn" onClick={() => handleUpdatePet(pet.id)}>Save</button>
+                    <button className="change-btn" onClick={() => setEditingPetId(null)}>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    <button className="change-btn" onClick={() => startEditingPet(pet)}>Edit</button>
+                    <button className="change-btn" onClick={() => handleDeletePet(pet.id)}>Delete</button>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-    </div>
-  </>
-);
+      </div>
+    </>
+  );
 }
+
