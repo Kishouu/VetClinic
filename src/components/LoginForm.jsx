@@ -22,8 +22,8 @@ export default function LoginForm({ onLogin }) {
     try {
       const res = await axios.post('http://localhost:3001/api/login', { login, password });
 
-      if (res.data.token) {
-        onLogin(res.data.token);
+      if (res.data.token && res.data.role) {
+        onLogin(res.data.token,res.data.role);
       } else {
         setError('Login failed: no token returned');
       }

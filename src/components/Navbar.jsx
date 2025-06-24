@@ -10,6 +10,8 @@ import homeHeader from '../assets/HomeHeader.png';
 import dashboardHeader from '../assets/DashboardHeader.png';
 
 export default function Navbar({ isLoggedIn, onLogout }) {
+  const role = localStorage.getItem('role');
+  const isDoctorOrAdmin = role === 'admin' || role === 'doctor';
   const location = useLocation();
   const isContactPage = location.pathname === '/contact';
   const isAboutPage = location.pathname === '/about';
@@ -202,6 +204,13 @@ export default function Navbar({ isLoggedIn, onLogout }) {
                   MY ACCOUNT
                 </Link>
               </li>
+              {isDoctorOrAdmin && (
+              <li>
+                <Link to="/dashboard">
+                  DASHBOARD
+                </Link>
+              </li>
+              )}
             </>
           )}
         </ul>

@@ -135,7 +135,7 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 */
 // GET all appointments (admin only)
-router.get('/', authenticateToken, requireAdmin, async (req, res) => {
+router.get('/', authenticateToken, requireDoctorOrAdmin, async (req, res) => {
   try {
     const appointments = await prisma.appointment.findMany({
       include: { pet: true, doctor: true, user: true, service: true },

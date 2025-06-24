@@ -17,16 +17,24 @@ import './style.css';
 export default function App() {
   const [token, setToken] = useState(() => localStorage.getItem('token') || '');
   const isLoggedIn = Boolean(token);
+  
+  const [role, setRole] = useState(() => localStorage.getItem('role') || '');
+  const isDoctorOrAdmin = Boolean(role === 'admin' || role === 'doctor');
 
-  const handleLogin = (newToken) => {
+  const handleLogin = (newToken,newRole) => {
     localStorage.setItem('token', newToken);
-    setToken(newToken);
+    localStorage.setItem('role',newRole)
+    setToken(newToken)
+    setRole(newRole);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('role');
     setToken('');
+    setRole('');
   };
+  console.log({ token, role, isLoggedIn, isDoctorOrAdmin });
 
   return (
     <Router>
@@ -35,7 +43,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<ContactUs isLoggedIn={isLoggedIn} />} />
-        <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
+        <Route path="/dashboard" element={<Dashboard isDoctorOrAdmin={isDoctorOrAdmin} />} />
         <Route path="/about" element={<AboutUs />} />
         <Route
           path="/signin"
