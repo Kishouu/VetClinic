@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const CreatePetForm = () => {
+import '../components/UI/CreatePetForm.css';
+
+const CreatePetForm = ({ onPetCreated }) => {
   const [formData, setFormData] = useState({
     name: '',
     species: '',
@@ -13,7 +15,7 @@ const CreatePetForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('token'); // fetch token from localStorage
+    const token = localStorage.getItem('token');
 
     try {
       const res = await axios.post('http://localhost:3001/api/pets', formData, {
@@ -25,6 +27,11 @@ const CreatePetForm = () => {
       setMessage(res.data.message || 'Pet created successfully!');
       setFormData({ name: '', species: '', breed: '' });
       setIsError(false);
+
+      if (onPetCreated) {
+        onPetCreated();
+      }
+
     } catch (err) {
       console.error('Pet creation error:', err);
       setMessage(err.response?.data?.error || 'Pet creation failed');
@@ -68,3 +75,4 @@ const CreatePetForm = () => {
 };
 
 export default CreatePetForm;
+

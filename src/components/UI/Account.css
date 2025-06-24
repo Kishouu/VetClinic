@@ -1,0 +1,111 @@
+/* Container max width & padding */
+.max-w-4xl {
+  max-width: 56rem; /* 896px */
+  margin-left: 10px;
+  margin-right: auto;
+  padding: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  color: #2a2a2a;
+  text-align: left;
+}
+
+/* Section titles */
+.section-title {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Table-like container */
+.table-like {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+/* Header and rows */
+.table-header,
+.table-row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Header row style */
+.table-header {
+  background-color: #f9fbf3; /* lighter grey for header */
+  font-weight: 600;
+}
+
+/* Header cells: left aligned text and background */
+.table-header > .table-cell {
+  text-align: center;
+  background-color: #f9fbf3;
+}
+
+/* Each cell */
+.table-cell {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-right: 1px solid #2a2a2a; /* vertical separator */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Remove right border from last cell */
+.table-header > .table-cell:last-child,
+.table-row > .table-cell:last-child {
+  border-right: none;
+}
+
+/* Body rows cells: centered text and light background */
+.table-row .table-cell {
+  text-align: center;
+  background-color: #fdfbf3;
+}
+
+/* Button styles */
+.add-pet-btn {
+  background-color: #2a2a2a;
+  color: #f9fbf3;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-pet-btn:hover {
+  background-color: #4D4D4D;
+}
+
+/* Margin utility */
+.mt-4 {
+  margin-top: 1rem;
+}
+
+/* Responsive: stack columns vertically on small screens */
+@media (max-width: 640px) {
+  .table-header,
+  .table-row {
+    flex-direction: column;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+  }
+
+  .table-cell {
+    border-right: none;
+    border-bottom: 1px solid #f9fbf3;
+    text-align: left;
+  }
+
+  .table-cell:last-child {
+    border-bottom: none;
+  }
+}
+
