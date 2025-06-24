@@ -94,7 +94,7 @@ router.put('/:id', authenticateToken, requireDoctorOrAdmin ,async (req, res) => 
 
     const updatedPet = await prisma.pet.update({
       where: { id: petId },
-      data: { name, species, brees },
+      data: { name, species, breed },
     });
 
     res.json({ message: 'Pet updated', pet: updatedPet });
@@ -106,7 +106,6 @@ router.put('/:id', authenticateToken, requireDoctorOrAdmin ,async (req, res) => 
 // DELETE pet
 router.delete('/:id', authenticateToken, requireDoctorOrAdmin ,async (req, res) => {
   const petId = parseInt(req.params.id);
-  const userId = req.user.id;
 
   try {
     const pet = await prisma.pet.findUnique({

@@ -1,0 +1,128 @@
+/* Container */
+.max-w-5xl {
+  max-width: 56rem;
+  margin-left: 10px;
+  margin-right: auto;
+  padding: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  color: #2a2a2a;
+  text-align: left;
+}
+
+/* Section titles */
+.section-title1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Table-like layout */
+.table-like1 {
+  min-width: 1500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+/* Header and rows */
+.table-header1,
+.table-row1 {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Header style */
+.table-header1 {
+  background-color: #f9fbf3;
+  font-weight: 600;
+}
+
+.table-header1 > .table-cell1 {
+  text-align: center;
+  background-color: #f9fbf3;
+}
+
+/* General table cell */
+.table-cell1 {
+  min-width: 200px;
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-left: 1px solid #2a2a2a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Remove last cell border */
+.table-header1 > .table-cell1:last-child,
+.table-row1 > .table-cell1:last-child {
+  border-right: none;
+}
+
+/* Row styling */
+.table-row1 .table-cell1 {
+  text-align: center;
+  background-color: #fdfbf3;
+}
+
+/* BUTTON GROUP FIX */
+.actions-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-right: none;
+  border-left: none;
+}
+
+/* Buttons */
+.change-btn {
+  background-color: #2a2a2a;
+  color: #f9fbf3;
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* Hover effect */
+.change-btn:hover {
+  background-color: #4D4D4D;
+}
+
+/* Utility margin */
+.mt-5 {
+  margin-top: 1rem;
+}
+
+/* Responsive stack on mobile */
+@media (max-width: 640px) {
+  .table-header1,
+  .table-row1 {
+    flex-direction: column;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+  }
+
+  .table-cell1 {
+    border-right: none;
+    border-bottom: 1px solid #f9fbf3;
+    text-align: left;
+  }
+
+  .table-cell1:last-child {
+    border-bottom: none;
+  }
+
+  .actions-cell {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
